@@ -5,7 +5,7 @@
     android:id="@+id/textView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainPage.MainActivity">
 
     <TextView
         android:id="@+id/Text_i.am"
@@ -47,12 +47,12 @@
         android:id="@+id/Text_introduction"
         android:layout_width="299dp"
         android:layout_height="359dp"
-        android:text="Welcome to i.am! Paragraph goes here. Paragraph goes here. Paragraph goes here. Paragraph goes here. Paragraph goes here. Paragraph goes here. Paragraph goes here."
+        android:text="Welcome to i.am!"
         android:textSize="22dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Text_i.am"
-        app:layout_constraintVertical_bias="0.096" />
+        app:layout_constraintVertical_bias="0.061" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
