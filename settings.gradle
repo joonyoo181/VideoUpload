@@ -1,0 +1,2 @@
+rootProject.name='i.amBeta'
+include ':app'
