@@ -12,12 +12,13 @@ class ProfilePage : AppCompatActivity() {
     //Declaring Button Variables
     private var profileToEditPage: Button? = null
     private var profileToMainPage: Button? = null
+    private var profileToLogOut: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_page)
 
-        //Initializing profileToEditPage Button
+        //Initializing profileEditPage Button
         profileToEditPage = findViewById(R.id.Button_profileToEditPage)
 
         //Initializing profileToMainPage Button & Checking if pressed
@@ -25,6 +26,9 @@ class ProfilePage : AppCompatActivity() {
         profileToMainPage!!.setOnClickListener {
             openMainPage()
         }
+
+        //Initializing profileLogOut Button
+        profileToLogOut = findViewById(R.id.Button_profileLogOut)
     }
 
     private fun openMainPage(){

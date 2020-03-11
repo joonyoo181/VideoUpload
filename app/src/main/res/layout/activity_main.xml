@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="i.am"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="42dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,9 +46,10 @@
 
     <TextView
         android:id="@+id/Text_introduction"
-        android:layout_width="299dp"
-        android:layout_height="359dp"
+        android:layout_width="304dp"
+        android:layout_height="160dp"
         android:text="Welcome to i.am!"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="22dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
