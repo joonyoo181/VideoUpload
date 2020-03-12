@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainPage.MainOptionsPage"></activity>
         <activity android:name=".MainPage.MainOptions" />
-        <activity android:name=".FAQPage.FAQPage" />
+        <activity android:name=".ProfilePage.FAQPage" />
         <activity android:name=".ProfilePage.ProfilePage" />
         <activity android:name=".MainPage.MainActivity">
             <intent-filter>

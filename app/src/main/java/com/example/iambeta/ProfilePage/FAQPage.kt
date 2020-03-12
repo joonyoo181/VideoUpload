@@ -1,4 +1,4 @@
-package com.example.iambeta.FAQPage
+package com.example.iambeta.ProfilePage
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -10,22 +10,22 @@ import com.example.iambeta.R
 class FAQPage : AppCompatActivity() {
 
     //Declaring Button Variables
-    private var faqToMainPage: Button? = null
+    private var faqToProfilePage: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_faq_page)
 
-        ///Initializing faqToMainPage Button & Checking if pressed
-        faqToMainPage = findViewById(R.id.Button_faqToMainPage)
-        faqToMainPage!!.setOnClickListener{
-            openMainPage()
+        ///Initializing faqToProfilePage Button & Checking if pressed
+        faqToProfilePage = findViewById(R.id.Button_faqToMainPage)
+        faqToProfilePage!!.setOnClickListener{
+            openProfilePage()
         }
     }
 
-    //Opening Main Page From FAQ Page
-    private fun openMainPage(){
-        val intent = Intent(this, MainActivity::class.java)
+    //Opening Profile Page From FAQ Page
+    private fun openProfilePage(){
+        val intent = Intent(this, ProfilePage::class.java)
         startActivity(intent)
     }
 }
