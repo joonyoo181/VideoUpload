@@ -1,10 +1,10 @@
-package com.example.iambeta.ProfilePage
+package com.example.iambeta.profilePage
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import com.example.iambeta.MainPage.MainActivity
+import com.example.iambeta.mainPage.MainActivity
 import com.example.iambeta.R
 
 class ProfilePage : AppCompatActivity() {

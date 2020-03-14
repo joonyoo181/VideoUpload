@@ -5,7 +5,7 @@
     android:id="@+id/textView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainPage.MainActivity">
+    tools:context=".mainPage.MainActivity">
 
     <VideoView
         android:id="@+id/Video_mainVideo"
