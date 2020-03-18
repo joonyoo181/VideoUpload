@@ -33,7 +33,7 @@
         app:layout_constraintVertical_bias="0.054" />
 
     <Button
-        android:id="@+id/Button_faqToMainPage"
+        android:id="@+id/Button_faqToProfilePage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"

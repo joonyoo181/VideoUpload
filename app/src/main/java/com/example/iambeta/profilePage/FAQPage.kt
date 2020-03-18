@@ -16,7 +16,7 @@ class FAQPage : AppCompatActivity() {
         setContentView(R.layout.activity_faq_page)
 
         ///Initializing faqToProfilePage Button & Checking if pressed
-        faqToProfilePage = findViewById(R.id.Button_faqToMainPage)
+        faqToProfilePage = findViewById(R.id.Button_faqToProfilePage)
         faqToProfilePage!!.setOnClickListener{
             openProfilePage()
         }
@@ -26,5 +26,6 @@ class FAQPage : AppCompatActivity() {
     private fun openProfilePage(){
         val intent = Intent(this, ProfilePage::class.java)
         startActivity(intent)
+        finish()
     }
 }

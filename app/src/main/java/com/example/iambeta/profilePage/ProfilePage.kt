@@ -46,11 +46,13 @@ class ProfilePage : AppCompatActivity() {
     private fun openFAQPage(){
         val intent = Intent(this, FAQPage::class.java)
         startActivity(intent)
+        finish()
     }
 
     //Opening Main Page from Profile Page
     private fun openMainPage(){
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }

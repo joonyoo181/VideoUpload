@@ -1,23 +1,34 @@
 package com.example.iambeta.mainPage
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.example.iambeta.profilePage.ProfilePage
 import com.example.iambeta.R
+import com.example.iambeta.camera.Camera
 
 class MainActivity : AppCompatActivity() {
 
     //Declaring Button Variables
-    var mainToChatPage: Button? = null
-    var mainVideoComments: Button? = null
-    var mainToDiscoverPage: Button? = null
-    var mainToProfilePage: Button? = null
+    private var mainToCamera: Button? = null
+    private var mainToChatPage: Button? = null
+    private var mainVideoComments: Button? = null
+    private var mainToDiscoverPage: Button? = null
+    private var mainToProfilePage: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //Initializing mainToCamera Button & Checking if pressed
+        mainToCamera = findViewById(R.id.Button_mainToCamera)
+        mainToCamera!!.setOnClickListener{
+            openCamera()
+        }
 
         //Initializing mainToChatPage Button
         mainToChatPage = findViewById(R.id.Button_mainToChatPage)
@@ -33,11 +44,20 @@ class MainActivity : AppCompatActivity() {
         mainToProfilePage!!.setOnClickListener{
             openProfilePage()
         }
+
+    }
+
+    //Opening Camera from Main Page
+    private fun openCamera(){
+        val intent = Intent(this, Camera::class.java)
+        startActivity(intent)
+        finish()
     }
 
     //Opening Profile Page from Main Page
     private fun openProfilePage(){
         val intent = Intent(this, ProfilePage::class.java)
         startActivity(intent)
+        finish()
     }
 }
