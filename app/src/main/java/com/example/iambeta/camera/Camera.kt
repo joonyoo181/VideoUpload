@@ -102,7 +102,7 @@ class Camera : AppCompatActivity() {
             lensPosition = if(cameraStatus == CameraState.BACK) front() else back(),
             cameraConfiguration = CameraConfiguration()
         )
-        if(cameraStatus == CameraState.BACK) cameraStatus == CameraState.FRONT else cameraStatus = CameraState.BACK
+        if(cameraStatus == CameraState.BACK) cameraStatus = CameraState.FRONT else cameraStatus = CameraState.BACK
     }
 
     //Turning the flash on/off

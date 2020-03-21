@@ -1,15 +1,12 @@
 package com.example.iambeta.mainPage
 
 import android.content.Intent
-import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.example.iambeta.profilePage.ProfilePage
+import androidx.appcompat.app.AppCompatActivity
 import com.example.iambeta.R
 import com.example.iambeta.camera.Camera
+import com.example.iambeta.profilePage.ProfilePage
 
 class MainActivity : AppCompatActivity() {
 
