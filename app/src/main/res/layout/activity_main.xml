@@ -5,7 +5,7 @@
     android:id="@+id/textView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainPage.MainActivity">
+    tools:context=".mainPage.MainActivity">
 
     <VideoView
         android:id="@+id/Video_mainVideo"
@@ -113,5 +113,17 @@
         app:layout_constraintStart_toEndOf="@+id/Button_mainToDiscoverPage"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.95" />
+
+    <Button
+        android:id="@+id/Button_mainToCamera"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="+"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
