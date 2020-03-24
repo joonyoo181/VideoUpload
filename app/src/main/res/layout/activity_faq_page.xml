@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfilePage.FAQPage">
+    tools:context=".profilePage.FAQPage">
 
     <TextView
         android:id="@+id/Text_FAQ"
@@ -33,7 +33,7 @@
         app:layout_constraintVertical_bias="0.054" />
 
     <Button
-        android:id="@+id/Button_faqToMainPage"
+        android:id="@+id/Button_faqToProfilePage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Back"
