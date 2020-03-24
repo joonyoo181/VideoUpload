@@ -9,8 +9,8 @@
 
     <VideoView
         android:id="@+id/Video_mainVideo"
-        android:layout_width="231dp"
-        android:layout_height="237dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/Text_mainStory"
-        android:layout_width="179dp"
+        android:layout_width="180dp"
         android:layout_height="40dp"
         android:text="Today's Story..."
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -35,12 +35,14 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:text="C"
+        android:background="@drawable/circle_buttons"
+        android:backgroundTint="@color/lightgray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.242"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.005" />
 
     <TextView
         android:id="@+id/Text_mainPostUser"
@@ -56,15 +58,17 @@
 
     <Button
         android:id="@+id/Button_mainToChatPage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
         android:text="Chat"
+        android:background="@drawable/slightly_corner_rounded_buttons"
+        android:backgroundTint="@color/lightgray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.025" />
 
     <TextView
         android:id="@+id/Text_mainVideoDescription"
@@ -81,9 +85,10 @@
 
     <Button
         android:id="@+id/Button_mainToDiscoverPage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:text="Discover"
+        android:backgroundTint="@color/lightgray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,9 +97,10 @@
 
     <Button
         android:id="@+id/main_mainToMainPage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:text="Feed"
+        android:backgroundTint="@color/lightgray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Button_mainToDiscoverPage"
         app:layout_constraintHorizontal_bias="0.45"
@@ -104,13 +110,14 @@
 
     <Button
         android:id="@+id/Button_mainToProfilePage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:text="Profile"
+        android:backgroundTint="@color/lightgray"
+        app:layout_constraintStart_toEndOf="@+id/Button_mainToDiscoverPage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toEndOf="@+id/Button_mainToDiscoverPage"
+        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.95" />
 
@@ -119,11 +126,13 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:text="+"
+        android:background="@drawable/circle_buttons"
+        android:backgroundTint="@color/lightgray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.044"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.025" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

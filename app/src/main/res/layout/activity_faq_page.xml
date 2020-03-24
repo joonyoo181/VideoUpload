@@ -34,15 +34,17 @@
 
     <Button
         android:id="@+id/Button_faqToProfilePage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:background="@drawable/slightly_corner_rounded_buttons"
+        android:backgroundTint="@color/lightgray"
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
+        app:layout_constraintVertical_bias="0.025" />
 
     <TextView
         android:id="@+id/Text_FAQ-S1"
