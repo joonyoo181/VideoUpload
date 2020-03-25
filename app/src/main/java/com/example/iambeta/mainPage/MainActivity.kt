@@ -4,10 +4,12 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.iambeta.profilePage.ProfilePage
+import com.example.iambeta.authentication.SignInActivity
 import com.example.iambeta.R
 import com.example.iambeta.camera.Camera
 
@@ -57,6 +59,12 @@ class MainActivity : AppCompatActivity() {
     //Opening Profile Page from Main Page
     private fun openProfilePage(){
         val intent = Intent(this, ProfilePage::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    fun openSignInPage(view: View) {
+        val intent = Intent(this, SignInActivity::class.java)
         startActivity(intent)
         finish()
     }

@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".camera.Camera"></activity>
+        <activity android:name=".authentication.SignInActivity"></activity>
+        <activity android:name=".camera.Camera" />
         <activity android:name=".profilePage.FAQPage" />
         <activity android:name=".profilePage.ProfilePage" />
         <activity android:name=".mainPage.MainActivity">
