@@ -48,7 +48,7 @@ class Camera : AppCompatActivity() {
 
     //Opening Main Page from Camera Page
     fun cameraToMainPage(view: View){
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
     }
 
@@ -72,7 +72,7 @@ class Camera : AppCompatActivity() {
             requestCameraPermission()
         }else{
             fotoapparat?.takePicture()?.saveToFile(dest)
-            Toast.makeText(applicationContext, "Picture Taken", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Picture Taken", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -132,7 +132,7 @@ class Camera : AppCompatActivity() {
     override fun onResume(){
         super.onResume()
         if(!hasNoCameraPermissions() && fotoapparatState == FotoapparatState.OFF){
-            startActivity(Intent(baseContext, Camera::class.java))
+            startActivity(Intent(applicationContext, Camera::class.java))
             finish()
         }
     }

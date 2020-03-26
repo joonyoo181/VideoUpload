@@ -2,7 +2,10 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
+    <style name="AppTheme.TransparentBG" >
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 </resources>

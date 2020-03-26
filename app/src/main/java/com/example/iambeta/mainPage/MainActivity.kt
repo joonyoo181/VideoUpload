@@ -16,13 +16,13 @@ class MainActivity : AppCompatActivity() {
 
     //Opening Camera from Main Page
     fun mainToCamera(view: View){
-        startActivity(Intent(this, Camera::class.java))
+        startActivity(Intent(applicationContext, Camera::class.java))
         finish()
     }
 
     //Opening Profile Page from Main Page
     fun mainToProfilePage(view: View){
-        startActivity(Intent(this, ProfilePage::class.java))
+        startActivity(Intent(applicationContext, ProfilePage::class.java))
         finish()
     }
 }

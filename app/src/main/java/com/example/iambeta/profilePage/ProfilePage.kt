@@ -21,19 +21,19 @@ class ProfilePage : AppCompatActivity() {
     fun profileLogOut(view: View){
         FirebaseAuth.getInstance().signOut()
         Toast.makeText(applicationContext,"Successfully Logged Out!", Toast.LENGTH_LONG).show()
-        startActivity(Intent(this, SignInActivity::class.java))
+        startActivity(Intent(applicationContext, SignInActivity::class.java))
         finish()
     }
 
     //Opening FAQ Page from Profile Page
     fun profileToFAQPage(view: View){
-        startActivity(Intent(this, FAQPage::class.java))
+        startActivity(Intent(applicationContext, FAQPage::class.java))
         finish()
     }
 
     //Opening Main Page from Profile Page
     fun profileToMainPage(view: View){
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
     }
 }
