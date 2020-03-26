@@ -61,6 +61,7 @@
 
     <Button
         android:id="@+id/Button_mainToCamera"
+        android:onClick="mainToCamera"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:text="+"
@@ -128,6 +129,7 @@
 
     <Button
         android:id="@+id/Button_mainToProfilePage"
+        android:onClick="mainToProfilePage"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:text="Profile"
@@ -138,5 +140,15 @@
         app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.95" />
+
+    <Button
+        android:id="@+id/signIn"
+        android:onClick="mainToSignInPage"
+        android:layout_width="91dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="428dp"
+        android:text="@string/common_signin_button_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Button_mainToCamera" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

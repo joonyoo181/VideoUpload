@@ -57,6 +57,7 @@
 
     <Button
         android:id="@+id/Button_profileToMainPage"
+        android:onClick="profileToMainPage"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:text="Feed"
@@ -83,6 +84,7 @@
 
     <Button
         android:id="@+id/Button_profileToFAQPage"
+        android:onClick="profileToFAQPage"
         android:layout_width="69dp"
         android:layout_height="39dp"
         android:background="@drawable/corners_rounded_buttons"

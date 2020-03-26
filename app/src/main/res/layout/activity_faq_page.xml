@@ -32,20 +32,6 @@
         app:layout_constraintTop_toBottomOf="@+id/Text_FAQ"
         app:layout_constraintVertical_bias="0.054" />
 
-    <Button
-        android:id="@+id/Button_faqToProfilePage"
-        android:layout_width="75dp"
-        android:layout_height="40dp"
-        android:background="@drawable/slightly_corner_rounded_buttons"
-        android:backgroundTint="@color/lightgray"
-        android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.025" />
-
     <TextView
         android:id="@+id/Text_FAQ-S1"
         android:layout_width="307dp"
@@ -57,4 +43,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Text_FAQ-Q1"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/Button_faqToProfilePage"
+        android:onClick="faqToProfilePage"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:background="@drawable/slightly_corner_rounded_buttons"
+        android:backgroundTint="@color/lightgray"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025" />
 </androidx.constraintlayout.widget.ConstraintLayout>
