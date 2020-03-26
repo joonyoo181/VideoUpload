@@ -48,8 +48,7 @@ class Camera : AppCompatActivity() {
 
     //Opening Main Page from Camera Page
     fun cameraToMainPage(view: View){
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 
@@ -133,8 +132,7 @@ class Camera : AppCompatActivity() {
     override fun onResume(){
         super.onResume()
         if(!hasNoCameraPermissions() && fotoapparatState == FotoapparatState.OFF){
-            val intent = Intent(baseContext, Camera::class.java)
-            startActivity(intent)
+            startActivity(Intent(baseContext, Camera::class.java))
             finish()
         }
     }

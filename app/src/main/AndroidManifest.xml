@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.iambeta">
 
+
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
@@ -15,12 +16,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".authentication.SignInActivity"></activity>
+        android:theme="@style/Theme.Design.Light.NoActionBar">
         <activity android:name=".camera.Camera" />
         <activity android:name=".profilePage.FAQPage" />
         <activity android:name=".profilePage.ProfilePage" />
-        <activity android:name=".mainPage.MainActivity">
+        <activity android:name=".mainPage.MainActivity"/>
+        <activity android:name=".authentication.SignInActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

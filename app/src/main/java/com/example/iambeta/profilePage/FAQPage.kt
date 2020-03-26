@@ -15,8 +15,7 @@ class FAQPage : AppCompatActivity() {
 
     //Opening Profile Page From FAQ Page
     fun faqToProfilePage(view: View){
-        val intent = Intent(this, ProfilePage::class.java)
-        startActivity(intent)
+        startActivity(Intent(this, ProfilePage::class.java))
         finish()
     }
 }
