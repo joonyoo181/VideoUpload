@@ -7,12 +7,13 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.iambeta.R
 
-class PopTwo : AppCompatActivity() {
+class SecondPopUp : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pop_two)
 
+        //Setting the layout over another
         val dm = DisplayMetrics()
         windowManager.defaultDisplay.getMetrics(dm)
 
@@ -22,16 +23,19 @@ class PopTwo : AppCompatActivity() {
         window.setLayout((width*.8).toInt(),(height*.7).toInt())
     }
 
-    @Override
+    //Back button cannot be pressed during this activity
     override fun onBackPressed(){
     }
 
+    //open PopOne from PopTwo
     fun popTwoToPopOne(view: View){
-        startActivity(Intent(applicationContext, PopOne::class.java))
+        startActivity(Intent(applicationContext, FirstPopUp::class.java))
         finish()
     }
 
-    fun popupDone(view: View){
+    //open PopThree from PopTwo
+    fun popTwoToPopThree(view: View){
+        startActivity(Intent(applicationContext, ThirdPopUp::class.java))
         finish()
     }
 }

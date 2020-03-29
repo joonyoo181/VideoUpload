@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mainPage.popUp.SecondPopUp"
+    tools:context=".mainPage.popUp.ThirdPopUp"
     android:background="@drawable/popup_bg">
 
     <TextView
-        android:id="@+id/popTwoWelcome"
+        android:id="@+id/popThreeWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Express Yourself!"
+        android:text="Be Creative!"
         android:textStyle="bold"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,20 +23,20 @@
         app:layout_constraintVertical_bias="0.1" />
 
     <TextView
-        android:id="@+id/popTwoDescription"
+        android:id="@+id/popThreeDescription"
         android:layout_width="250dp"
         android:layout_height="400dp"
         android:gravity="center"
-        android:text="Feel free to express your story to others! Simply, record a short video about your experiences that others could relate to by clicking the “+” button on the top left corner."
+        android:text="Edit your video with our editor in your style. Be creative because there are a lot of options to choose from!"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popTwoWelcome" />
+        app:layout_constraintTop_toBottomOf="@+id/popThreeWelcome" />
 
     <Button
-        android:id="@+id/popTwoToPopOne"
-        android:onClick="popTwoToPopOne"
+        android:id="@+id/popThreeToPopTwo"
+        android:onClick="popThreeToPopTwo"
         android:background="@drawable/circle_buttons"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -50,8 +49,8 @@
         app:layout_constraintVertical_bias="0.5" />
 
     <Button
-        android:id="@+id/popTwoToPopThree"
-        android:onClick="popTwoToPopThree"
+        android:id="@+id/popThreeToPopFour"
+        android:onClick="popThreeToPopFour"
         android:background="@drawable/circle_buttons"
         android:layout_width="50dp"
         android:layout_height="50dp"

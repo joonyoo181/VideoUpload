@@ -27,11 +27,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".mainPage.popUp.PopOne"
+        <activity android:name=".mainPage.popUp.FirstPopUp"
+            android:theme="@style/AppTheme.TransparentBG"/>
+        <activity android:name=".mainPage.popUp.SecondPopUp"
             android:theme="@style/AppTheme.TransparentBG" />
-        <activity
-            android:name=".mainPage.popUp.PopTwo"
+        <activity android:name=".mainPage.popUp.ThirdPopUp"
+            android:theme="@style/AppTheme.TransparentBG" />
+        <activity android:name=".mainPage.popUp.FourthPopUp"
+            android:theme="@style/AppTheme.TransparentBG" />
+        <activity android:name=".mainPage.popUp.FifthPopUp"
+            android:theme="@style/AppTheme.TransparentBG" />
+        <activity android:name=".mainPage.popUp.SixthPopUp"
+            android:theme="@style/AppTheme.TransparentBG" />
+        <activity android:name=".mainPage.popUp.SeventhPopUp"
             android:theme="@style/AppTheme.TransparentBG" />
     </application>
 
