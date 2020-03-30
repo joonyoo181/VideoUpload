@@ -20,7 +20,7 @@ class ProfilePage : AppCompatActivity() {
     //Signs out the user
     fun profileLogOut(view: View){
         FirebaseAuth.getInstance().signOut()
-        Toast.makeText(applicationContext,"Successfully Logged Out!", Toast.LENGTH_LONG).show()
+        Toast.makeText(applicationContext, "Successfully Logged Out!", Toast.LENGTH_LONG).show()
         startActivity(Intent(applicationContext, SignInActivity::class.java))
         finish()
     }

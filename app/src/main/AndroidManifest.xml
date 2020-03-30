@@ -16,16 +16,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".camera.Camera"></activity>
+        <activity android:name=".mainPage.FeedActivity"/>
+        <activity android:name=".mainPage.MainActivity"/>
+        <activity android:name=".camera.Camera" />
         <activity android:name=".profilePage.FAQPage" />
         <activity android:name=".profilePage.ProfilePage" />
-        <activity android:name=".mainPage.MainActivity">
+        <activity android:name=".storage.UploadActivity"/>
+        <activity android:name=".authentication.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".mainPage.popUp.FirstPopUp"
+            android:theme="@style/AppTheme.TransparentBG"/>
+        <activity android:name=".mainPage.popUp.SecondPopUp"
+            android:theme="@style/AppTheme.TransparentBG"/>
+        <activity android:name=".mainPage.popUp.ThirdPopUp"
+            android:theme="@style/AppTheme.TransparentBG"/>
+        <activity android:name=".mainPage.popUp.FourthPopUp"
+            android:theme="@style/AppTheme.TransparentBG"/>
+        <activity android:name=".mainPage.popUp.FifthPopUp"
+            android:theme="@style/AppTheme.TransparentBG"/>
+        <activity android:name=".mainPage.popUp.SixthPopUp"
+            android:theme="@style/AppTheme.TransparentBG"/>
+        <activity android:name=".mainPage.popUp.SeventhPopUp"
+            android:theme="@style/AppTheme.TransparentBG"/>
     </application>
 
 </manifest>
