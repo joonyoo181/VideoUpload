@@ -16,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".authentication.SignInActivity"></activity>
+        <activity android:name=".mainPage.FeedActivity"></activity>
+        <activity android:name=".storage.UploadActivity" />
+        <activity android:name=".authentication.SignInActivity" />
         <activity android:name=".camera.Camera" />
         <activity android:name=".profilePage.FAQPage" />
         <activity android:name=".profilePage.ProfilePage" />
