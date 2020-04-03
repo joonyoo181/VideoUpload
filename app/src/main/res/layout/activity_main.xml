@@ -59,7 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
         app:layout_constraintVertical_bias="0.272" />
 
-    <Button
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/Button_mainToCamera"
         android:onClick="mainToCamera"
         android:layout_width="50dp"
@@ -140,18 +140,5 @@
         app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.95" />
-
-    <Button
-        android:id="@+id/button"
-        android:onClick="openPopOne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="popup"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.006"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.669" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

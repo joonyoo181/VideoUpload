@@ -19,10 +19,14 @@ class ProfilePage : AppCompatActivity() {
 
     //Signs out the user
     fun profileLogOut(view: View){
-        FirebaseAuth.getInstance().signOut()
-        Toast.makeText(applicationContext, "Successfully Logged Out!", Toast.LENGTH_LONG).show()
-        startActivity(Intent(applicationContext, SignInActivity::class.java))
-        finish()
+        try{
+            FirebaseAuth.getInstance().signOut()
+            Toast.makeText(applicationContext, "Successfully Logged Out!", Toast.LENGTH_LONG).show()
+            startActivity(Intent(applicationContext, SignInActivity::class.java))
+            finish()
+        }catch (e: Exception){
+            Toast.makeText(applicationContext, e.toString(), Toast.LENGTH_LONG).show()
+        }
     }
 
     //Opening FAQ Page from Profile Page
