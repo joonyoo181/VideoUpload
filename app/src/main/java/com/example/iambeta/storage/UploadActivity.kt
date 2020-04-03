@@ -10,6 +10,7 @@ import android.provider.MediaStore
 import android.view.View
 import android.widget.Toast
 import com.example.iambeta.R
+import com.example.iambeta.mainPage.FeedActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -49,7 +50,16 @@ class UploadActivity : AppCompatActivity() {
 
         storageReference.putFile(selected!!).addOnSuccessListener { taskSnapshot ->
             val downloadUrl = storageReference.downloadUrl.toString()
-            print(downloadUrl)
+            val user = mAuth!!.currentUser
+            val userEmail = user!!.email.toString()
+            val userComment = commentText.text.toString()
+
+            val uuid = UUID.randomUUID()
+            val uuidString = uuid.toString()
+            myRef!!.child("Posts").child(uuidString).child("useremail").setValue(userEmail)
+            myRef!!.child("Posts").child(uuidString).child("comment").setValue(userComment)
+            myRef!!.child("Posts").child(uuidString).child("downloadUrl").setValue(downloadUrl)
+
         }.addOnFailureListener { exception ->
                 if (exception!=null) {
                     Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
@@ -58,8 +68,8 @@ class UploadActivity : AppCompatActivity() {
                 if (task.isComplete) {
                     Toast.makeText(applicationContext, "Post Shared", Toast.LENGTH_LONG).show()
 
-                    //Take to the feed
-
+                    val intent = Intent(applicationContext, FeedActivity::class.java)
+                    startActivity(intent)
                 }
             }
 
