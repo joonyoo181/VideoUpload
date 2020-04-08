@@ -3,10 +3,11 @@ package com.example.iambeta.mainPage
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ListView
-import com.example.iambeta.MainPage.PostClass
+import com.example.iambeta.mainPage.PostClass
 import com.example.iambeta.R
 import com.example.iambeta.storage.UploadActivity
 import com.google.firebase.database.*
@@ -24,6 +25,7 @@ class FeedActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
+        val menuInflater = menuInflater
         menuInflater.inflate(R.menu.add_post, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -47,7 +49,7 @@ class FeedActivity : AppCompatActivity() {
         firebaseDatabase = FirebaseDatabase.getInstance()
         myRef = firebaseDatabase!!.getReference()
 
-        adapter = PostClass(useremailFromFB,userImageFromFB,userCommentFromFB, this)
+        adapter = PostClass(useremailFromFB, userImageFromFB, userCommentFromFB, this)
 
         listView.adapter = adapter
 
@@ -63,10 +65,6 @@ class FeedActivity : AppCompatActivity() {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-//                println(p0)
-//                println(p0!!.children)
-//                println(p0!!.key)
-//                println(p0!!.value)
 
                 adapter!!.clear()
                 userImageFromFB.clear()
@@ -81,18 +79,18 @@ class FeedActivity : AppCompatActivity() {
 
                         val email = hashMap["useremail"]
                         val comment = hashMap["comment"]
-                        val image = hashMap["downloadurl"]
+                        val image = hashMap["downloadUrl"]
 
                         if(email != null) {
                             useremailFromFB.add(email)
                         }
 
                         if(comment != null) {
-                            useremailFromFB.add(comment)
+                            userCommentFromFB.add(comment)
                         }
 
                         if(image != null) {
-                            useremailFromFB.add(image)
+                            userImageFromFB.add(image)
                         }
 
                         adapter!!.notifyDataSetChanged()

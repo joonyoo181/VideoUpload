@@ -1,10 +1,12 @@
-package com.example.iambeta.MainPage;
+package com.example.iambeta.mainPage;
 
 import android.app.Activity
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.example.iambeta.R
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.custom_view.view.*
 
 class PostClass (private val useremail: ArrayList<String>,
@@ -19,9 +21,17 @@ class PostClass (private val useremail: ArrayList<String>,
 
         val customView = layoutInflater.inflate(R.layout.custom_view, null, true)
 
-        //TODO FIX
-        //customView.customUserName.text = useremail[position]
-        //customView.customCommentText.text = userComment[position]
+        if (useremail.size != 0){
+            customView.customUserName.text = useremail[position]
+        }
+
+        if (userComment.size != 0){
+            customView.customUserName.text = userComment[position]
+        }
+
+        if (userImage.size != 0){
+            Picasso.get().load(userImage[position]).into(customView.customImageView)
+        }
 
         return customView
     }
