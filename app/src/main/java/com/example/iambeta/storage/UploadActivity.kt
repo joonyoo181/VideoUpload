@@ -67,17 +67,17 @@ class UploadActivity : AppCompatActivity() {
             }
 
         }.addOnFailureListener { exception ->
-                if (exception!=null) {
-                    Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
-                }
-            }.addOnCompleteListener{ task ->
-                if (task.isComplete) {
-                    Toast.makeText(applicationContext, "Post Shared", Toast.LENGTH_LONG).show()
-
-                    val intent = Intent(applicationContext, FeedActivity::class.java)
-                    startActivity(intent)
-                }
+            if (exception!=null) {
+                Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
             }
+        }.addOnCompleteListener{ task ->
+            if (task.isComplete) {
+                Toast.makeText(applicationContext, "Post Shared", Toast.LENGTH_LONG).show()
+
+                val intent = Intent(applicationContext, FeedActivity::class.java)
+                startActivity(intent)
+            }
+        }
 
     }
 

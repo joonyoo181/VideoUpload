@@ -4,7 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
-import android.widget.Button
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -25,12 +25,6 @@ import java.io.File
 
 class Camera : AppCompatActivity() {
 
-    //Declaring Button Variables
-    private var cameraToMainPage: Button? = null
-    private var cameraFlash: Button? = null
-    private var cameraTakePicture: Button? = null
-    private var cameraSwitch: Button? = null
-
     //Declaring Fotoapparat Variables
     private var fotoapparat: Fotoapparat? = null
 
@@ -43,30 +37,6 @@ class Camera : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
 
-        //Initializing cameraToMainPage Button and checking if pressed
-        cameraToMainPage = findViewById(R.id.Button_cameraToMainPage)
-        cameraToMainPage!!.setOnClickListener{
-            openMainPage()
-        }
-
-        //Initializing cameraFlash Button and checking if pressed
-        cameraFlash = findViewById(R.id.Button_cameraFlash)
-        cameraFlash!!.setOnClickListener {
-            changeFlashState()
-        }
-
-        //Initializing cameraTakePicture Button and checking if pressed
-        cameraTakePicture = findViewById(R.id.Button_cameraTakePicture)
-        cameraTakePicture!!.setOnClickListener {
-            takePicture()
-        }
-
-        //Initializing cameraFlip Button and checking if pressed
-        cameraSwitch = findViewById(R.id.Button_cameraSwitch)
-        cameraSwitch!!.setOnClickListener {
-            switchCamera()
-        }
-
         //Initializing fotoapparat Variable
         createFotoApparant()
 
@@ -77,36 +47,13 @@ class Camera : AppCompatActivity() {
     }
 
     //Opening Main Page from Camera Page
-    private fun openMainPage(){
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+    fun cameraToMainPage(view: View){
+        startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
     }
 
-    //Checking Permission and Taking a Picture and Storing it inside the android device
-    private fun takePicture() {
-        val filename = "text.png"
-        val sd = Environment.getExternalStorageDirectory() //Need to Change This
-        val dest = File(sd, filename)
-        if(hasNoCameraPermissions()){
-            requestCameraPermission()
-        }else{
-            fotoapparat?.takePicture()?.saveToFile(dest)
-            Toast.makeText(applicationContext, "Picture Taken", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    //Switch between front and back camera when the button is pressed
-    private fun switchCamera(){
-        fotoapparat?.switchTo(
-            lensPosition = if(cameraStatus == CameraState.BACK) front() else back(),
-            cameraConfiguration = CameraConfiguration()
-        )
-        if(cameraStatus == CameraState.BACK) cameraStatus == CameraState.FRONT else cameraStatus = CameraState.BACK
-    }
-
     //Turning the flash on/off
-    private fun changeFlashState(){
+    fun cameraFlash(view: View){
         fotoapparat?.updateConfiguration(
             CameraConfiguration(
                 flashMode = if(flashState == FlashState.ON) off() else torch()
@@ -114,6 +61,28 @@ class Camera : AppCompatActivity() {
         )
 
         if(flashState == FlashState.ON) flashState = FlashState.OFF else flashState = FlashState.ON
+    }
+
+    //Checking Permission and Taking a Picture and Storing it inside the android device
+    fun cameraTakePicture(view: View) {
+        val filename = "text.png"
+        val sd = Environment.getExternalStorageDirectory() //Need to Change This
+        val dest = File(sd, filename)
+        if(hasNoCameraPermissions()){
+            requestCameraPermission()
+        }else{
+            fotoapparat?.takePicture()?.saveToFile(dest)
+            Toast.makeText(this, "Picture Taken", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    //Switch between front and back camera when the button is pressed
+    fun cameraSwitch(view: View){
+        fotoapparat?.switchTo(
+            lensPosition = if(cameraStatus == CameraState.BACK) front() else back(),
+            cameraConfiguration = CameraConfiguration()
+        )
+        if(cameraStatus == CameraState.BACK) cameraStatus = CameraState.FRONT else cameraStatus = CameraState.BACK
     }
 
     //Check user's permission of camera
@@ -159,12 +128,11 @@ class Camera : AppCompatActivity() {
         }
     }
 
-    //Stay on Camera Activity
+    //Resume the preview of the Camera
     override fun onResume(){
         super.onResume()
         if(!hasNoCameraPermissions() && fotoapparatState == FotoapparatState.OFF){
-            val intent = Intent(baseContext, Camera::class.java)
-            startActivity(intent)
+            startActivity(Intent(applicationContext, Camera::class.java))
             finish()
         }
     }

@@ -5,12 +5,13 @@
     android:id="@+id/textView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/darkcyan"
     tools:context=".mainPage.MainActivity">
 
     <VideoView
         android:id="@+id/Video_mainVideo"
-        android:layout_width="231dp"
-        android:layout_height="237dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,9 +20,10 @@
 
     <TextView
         android:id="@+id/Text_mainStory"
-        android:layout_width="179dp"
+        android:layout_width="180dp"
         android:layout_height="40dp"
         android:text="Today's Story..."
+        android:textColor="@color/lightgray"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,23 +32,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.136" />
 
-    <Button
-        android:id="@+id/Button_mainVideoComments"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:text="C"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.242"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
-        app:layout_constraintVertical_bias="0.0" />
-
     <TextView
         android:id="@+id/Text_mainPostUser"
         android:layout_width="100dp"
         android:layout_height="40dp"
-        android:text="'@UserName'"
+        android:text="/@UserName"
+        android:textColor="@color/lightgray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.736"
@@ -54,23 +45,12 @@
         app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/Button_mainToChatPage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Chat"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
-
     <TextView
         android:id="@+id/Text_mainVideoDescription"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:text="Description"
+        android:textColor="@color/lightgray"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,21 +60,69 @@
         app:layout_constraintVertical_bias="0.272" />
 
     <Button
-        android:id="@+id/Button_mainToDiscoverPage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Discover"
+        android:id="@+id/Button_mainToChatPage"
+        android:layout_width="75dp"
+        android:layout_height="40dp"
+        android:text="Chat"
+        android:background="@drawable/slightly_corner_rounded_buttons"
+        android:backgroundTint="@color/lightcyan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintVertical_bias="0.025" />
+
+    <Button
+        android:id="@+id/Button_mainVideoComments"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:text="C"
+        android:background="@drawable/circle_buttons"
+        android:backgroundTint="@color/lightcyan"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.242"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
+        app:layout_constraintVertical_bias="0.005" />
+
+    <Button
+        android:id="@+id/upload"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/circle_buttons"
+        android:backgroundTint="@color/lightcyan"
+        android:onClick="mainToUploadPage"
+        android:text="U"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.353"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
+        app:layout_constraintVertical_bias="0.006" />
+
+    <Button
+        android:id="@+id/otherFeed"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/circle_buttons"
+        android:backgroundTint="@color/lightcyan"
+        android:onClick="mainToOtherFeed"
+        android:text="O"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
+        app:layout_constraintVertical_bias="0.006" />
 
     <Button
         android:id="@+id/main_mainToMainPage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:text="Feed"
+        android:backgroundTint="@color/lightblue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Button_mainToDiscoverPage"
         app:layout_constraintHorizontal_bias="0.45"
@@ -103,37 +131,29 @@
         app:layout_constraintVertical_bias="0.95" />
 
     <Button
-        android:id="@+id/Button_mainToProfilePage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profile"
+        android:id="@+id/Button_mainToDiscoverPage"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:text="Discover"
+        android:backgroundTint="@color/lightblue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.55"
-        app:layout_constraintStart_toEndOf="@+id/Button_mainToDiscoverPage"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.95" />
 
     <Button
-        android:id="@+id/Button_mainToCamera"
-        android:layout_width="50dp"
+        android:id="@+id/Button_mainToProfilePage"
+        android:onClick="mainToProfilePage"
+        android:layout_width="150dp"
         android:layout_height="50dp"
-        android:text="+"
+        android:text="Profile"
+        android:backgroundTint="@color/lightblue"
+        app:layout_constraintStart_toEndOf="@+id/Button_mainToDiscoverPage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.044"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.023" />
-
-    <Button
-        android:id="@+id/signIn"
-        android:layout_width="91dp"
-        android:layout_height="39dp"
-        android:layout_marginTop="428dp"
-        android:onClick="openSignInPage"
-        android:text="@string/common_signin_button_text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Button_mainToCamera" />
+        app:layout_constraintVertical_bias="0.95" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

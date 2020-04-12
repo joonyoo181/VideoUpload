@@ -1,58 +1,43 @@
 package com.example.iambeta.profilePage
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import com.example.iambeta.mainPage.MainActivity
+import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.iambeta.R
+import com.example.iambeta.authentication.SignInActivity
+import com.example.iambeta.mainPage.MainActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class ProfilePage : AppCompatActivity() {
-
-    //Declaring Button Variables
-    private var profileToFAQPage: Button? = null
-    private var profileToLogOut: Button? = null
-    private var profileToEditPage: Button? = null
-    private var profileToMainPage: Button? = null
-    private var profileToDiscoverPage: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile_page)
+    }
 
-        //Initializing profileToFAQPage Button & Checking if pressed
-        profileToFAQPage = findViewById(R.id.Button_profileToFAQPage)
-        profileToFAQPage!!.setOnClickListener {
-            openFAQPage()
+    //Signs out the user
+    fun profileLogOut(view: View){
+        try{
+            FirebaseAuth.getInstance().signOut()
+            Toast.makeText(applicationContext, "Successfully Logged Out!", Toast.LENGTH_LONG).show()
+            startActivity(Intent(applicationContext, SignInActivity::class.java))
+            finish()
+        }catch (e: Exception){
+            Toast.makeText(applicationContext, e.toString(), Toast.LENGTH_LONG).show()
         }
-
-        //Initializing profileLogOut Button
-        profileToLogOut = findViewById(R.id.Button_profileLogOut)
-
-        //Initializing profileEditPage Button
-        profileToEditPage = findViewById(R.id.Button_profileToEditPage)
-
-        //Initializing profileToMainPage Button & Checking if pressed
-        profileToMainPage = findViewById(R.id.Button_profileToMainPage)
-        profileToMainPage!!.setOnClickListener {
-            openMainPage()
-        }
-
-        //Initializing profileToDiscoverPage Button & Checking if pressed
-        profileToDiscoverPage = findViewById(R.id.Button_profileToMainPage)
     }
 
     //Opening FAQ Page from Profile Page
-    private fun openFAQPage(){
-        val intent = Intent(this, FAQPage::class.java)
-        startActivity(intent)
+    fun profileToFAQPage(view: View){
+        startActivity(Intent(applicationContext, FAQPage::class.java))
         finish()
     }
 
     //Opening Main Page from Profile Page
-    private fun openMainPage(){
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
+    fun profileToMainPage(view: View){
+        startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
     }
 }

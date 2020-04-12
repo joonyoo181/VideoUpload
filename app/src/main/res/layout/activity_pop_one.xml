@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mainPage.popUp.FirstPopUp"
+    android:background="@drawable/popup_bg">
+
+    <TextView
+        android:id="@+id/popOneWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Welcome to i.am!"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
+
+    <TextView
+        android:id="@+id/popOneDescription"
+        android:layout_width="250dp"
+        android:layout_height="400dp"
+        android:gravity="center"
+        android:text="Studies show teenagers experience enormous stress from school, family, etc. They also showed that verbal communication is the best way to beat stress. However, many teenagers feel uncomfortable sharing their problems due to the fear of being judged. That is the primary reason why we developed this app!
+We want you to share you thoughts and feelings safely in this app. With our strict guidelines and restrictions, you shouldn’t worry about getting judgements on your story! In fact, we require AR and voice filters to help hide your identity. Therefore, don’t be scared to reveal anything in your mind right now.
+The following popup windows will guide you through the basics in using this app!
+"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/popOneWelcome" />
+
+    <Button
+        android:id="@+id/popOneToPopTwo"
+        android:onClick="popOneToPopTwo"
+        android:background="@drawable/circle_buttons"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text="N"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

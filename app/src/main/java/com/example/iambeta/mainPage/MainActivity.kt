@@ -1,71 +1,42 @@
 package com.example.iambeta.mainPage
 
 import android.content.Intent
-import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.example.iambeta.profilePage.ProfilePage
-import com.example.iambeta.authentication.SignInActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.example.iambeta.R
 import com.example.iambeta.camera.Camera
+import com.example.iambeta.profilePage.ProfilePage
+import com.example.iambeta.storage.UploadActivity
 
 class MainActivity : AppCompatActivity() {
-
-    //Declaring Button Variables
-    private var mainToCamera: Button? = null
-    private var mainToChatPage: Button? = null
-    private var mainVideoComments: Button? = null
-    private var mainToDiscoverPage: Button? = null
-    private var mainToProfilePage: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //Initializing mainToCamera Button & Checking if pressed
-        mainToCamera = findViewById(R.id.Button_mainToCamera)
-        mainToCamera!!.setOnClickListener{
-            openCamera()
-        }
-
-        //Initializing mainToChatPage Button
-        mainToChatPage = findViewById(R.id.Button_mainToChatPage)
-
-        //Initializing mainVideoComments Button
-        mainVideoComments = findViewById(R.id.Button_mainVideoComments)
-
-        //Initializing mainToDiscoverPage Button
-        mainToDiscoverPage = findViewById(R.id.Button_mainToDiscoverPage)
-
-        //Initializing mainToProfilePage Button & Checking if pressed
-        mainToProfilePage = findViewById(R.id.Button_mainToProfilePage)
-        mainToProfilePage!!.setOnClickListener{
-            openProfilePage()
-        }
-
     }
 
     //Opening Camera from Main Page
-    private fun openCamera(){
-        val intent = Intent(this, Camera::class.java)
-        startActivity(intent)
+    fun mainToCamera(view: View){
+        startActivity(Intent(applicationContext, Camera::class.java))
         finish()
     }
 
     //Opening Profile Page from Main Page
-    private fun openProfilePage(){
-        val intent = Intent(this, ProfilePage::class.java)
-        startActivity(intent)
+    fun mainToProfilePage(view: View){
+        startActivity(Intent(applicationContext, ProfilePage::class.java))
         finish()
     }
 
-    fun openSignInPage(view: View) {
-        val intent = Intent(this, SignInActivity::class.java)
-        startActivity(intent)
+    //Opening Profile Page from Main Page
+    fun mainToUploadPage(view: View){
+        startActivity(Intent(applicationContext, UploadActivity::class.java))
+        finish()
+    }
+
+    //Opening Profile Page from Main Page
+    fun mainToOtherFeed(view: View){
+        startActivity(Intent(applicationContext, FeedActivity::class.java))
         finish()
     }
 }
