@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.iambeta.R
 import com.example.iambeta.camera.Camera
 import com.example.iambeta.profilePage.ProfilePage
+import com.example.iambeta.storage.UploadActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,6 +25,18 @@ class MainActivity : AppCompatActivity() {
     //Opening Profile Page from Main Page
     fun mainToProfilePage(view: View){
         startActivity(Intent(applicationContext, ProfilePage::class.java))
+        finish()
+    }
+
+    //Opening Profile Page from Main Page
+    fun mainToUploadPage(view: View){
+        startActivity(Intent(applicationContext, UploadActivity::class.java))
+        finish()
+    }
+
+    //Opening Profile Page from Main Page
+    fun mainToOtherFeed(view: View){
+        startActivity(Intent(applicationContext, FeedActivity::class.java))
         finish()
     }
 }

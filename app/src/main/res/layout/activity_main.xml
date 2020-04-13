@@ -59,6 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
         app:layout_constraintVertical_bias="0.3" />
 
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/Button_mainToCamera"
         android:layout_width="wrap_content"
@@ -74,6 +75,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.025" />
+
 
     <Button
         android:id="@+id/Button_mainToChatPage"
@@ -102,6 +104,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
         app:layout_constraintVertical_bias="0.005" />
+
+    <Button
+        android:id="@+id/upload"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/circle_buttons"
+        android:backgroundTint="@color/lightcyan"
+        android:onClick="mainToUploadPage"
+        android:text="U"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.353"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
+        app:layout_constraintVertical_bias="0.006" />
+
+    <Button
+        android:id="@+id/otherFeed"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/circle_buttons"
+        android:backgroundTint="@color/lightcyan"
+        android:onClick="mainToOtherFeed"
+        android:text="O"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
+        app:layout_constraintVertical_bias="0.006" />
 
     <Button
         android:id="@+id/main_mainToMainPage"
