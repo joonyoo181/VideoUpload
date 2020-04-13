@@ -1,161 +1,191 @@
 package com.example.iambeta.camera
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.hardware.camera2.CameraAccessException
+import android.hardware.camera2.CameraManager
 import android.os.Bundle
-import android.os.Environment
+import android.util.Log
+import android.util.Size
+import android.view.TextureView
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.camera.core.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
 import com.example.iambeta.R
 import com.example.iambeta.mainPage.MainActivity
-import io.fotoapparat.Fotoapparat
-import io.fotoapparat.configuration.CameraConfiguration
-import io.fotoapparat.log.logcat
-import io.fotoapparat.log.loggers
-import io.fotoapparat.parameter.ScaleType
-import io.fotoapparat.selector.back
-import io.fotoapparat.selector.front
-import io.fotoapparat.selector.off
-import io.fotoapparat.selector.torch
-import io.fotoapparat.view.CameraView
 import java.io.File
 
+//variables for requesting permission
+private const val REQUEST_CODE_PERMISSION = 10
+private val REQUIRED_PERMISSION = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
+val tag = Camera::class.java.simpleName
+
+//SupressLint used to ignore methods that show error due to camerax bugs
+@SuppressLint("RestrictedApi")
 class Camera : AppCompatActivity() {
 
-    //Declaring Fotoapparat Variables
-    private var fotoapparat: Fotoapparat? = null
-
-    //Declaring Variables for Managing States (ex. flash on/off)
-    private var fotoapparatState: FotoapparatState? = null
-    private var cameraStatus: CameraState? = null
-    private var flashState: FlashState? = null
+    //declaring variables for recording videos
+    private lateinit var cameraPreview: TextureView
+    private lateinit var recordButton: com.google.android.material.floatingactionbutton.FloatingActionButton
+    private lateinit var flashButton: com.google.android.material.floatingactionbutton.FloatingActionButton
+    private var recordingStatus: recordingState? = null
+    private var flashStatus: flashState? = null
+    private lateinit var videoCapture: VideoCapture
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
 
-        //Initializing fotoapparat Variable
-        createFotoApparant()
+        //initializing variables for recording videos
+        cameraPreview = findViewById(R.id.camera_CameraPreview)
+        recordButton = findViewById(R.id.camera_CameraRecord)
+        flashButton = findViewById(R.id.camera_CameraFlash)
+        recordingStatus = recordingState.NOTRECORDING
+        flashStatus = flashState.OFF
 
-        //Initializing Variables for Managing States (ex. Flash on/off)
-        fotoapparatState = FotoapparatState.OFF
-        cameraStatus = CameraState.BACK
-        flashState = FlashState.OFF
+        //variable for storing the video/recording
+        val file = File(externalMediaDirs.first(), "${System.currentTimeMillis()}.mp4")
+
+        //if record button is clicked
+        recordButton.setOnClickListener{
+            if(recordingStatus == recordingState.NOTRECORDING) {
+                recordingStatus = recordingState.RECORDING
+                recordButton.setImageResource(R.drawable.camera_stop_record_vector)
+                videoCapture.startRecording(file, object:VideoCapture.OnVideoSavedListener{
+                    //saved to: /storage/emulated/0/Android/media/[this.package.name]
+                    override fun onVideoSaved(file: File?) {
+                        Log.i(tag, "Video File: $file")
+                    }
+
+                    override fun onError(useCaseError: VideoCapture.UseCaseError?, message: String?, cause: Throwable?){
+                        Log.i(tag, "Video Error: $message")
+                    }
+                })
+            }else if(recordingStatus == recordingState.RECORDING){
+                recordingStatus = recordingState.NOTRECORDING
+                recordButton.setImageResource(R.drawable.camera_record_vector)
+                videoCapture.stopRecording()
+                Toast.makeText(this, "Saved to /storage/emulated/0/Android/media/[your.package.name]", Toast.LENGTH_SHORT).show()
+                Log.i(tag, "Video File Stopped")
+            }
+        }
+
+        //if flash button is click
+        flashButton.setOnClickListener{
+            if(this.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
+                if (flashStatus == flashState.OFF) {
+                    Toast.makeText(this, "Flash Turned On", Toast.LENGTH_SHORT).show()
+                    flashStatus = flashState.ON
+                    flashButton.setImageResource(R.drawable.camera_flash_off_vector)
+                    turnFlashlightOn()
+                } else if (flashStatus == flashState.ON) {
+                    Toast.makeText(this, "Flash Turned Off", Toast.LENGTH_SHORT).show()
+                    flashStatus = flashState.OFF
+                    flashButton.setImageResource(R.drawable.camera_flash_on_vector)
+                    turnFlashlightOff()
+                }
+            }
+        }
     }
 
-    //Opening Main Page from Camera Page
+    //Opening MainPage from Camera Page
     fun cameraToMainPage(view: View){
         startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
     }
 
-    //Turning the flash on/off
-    fun cameraFlash(view: View){
-        fotoapparat?.updateConfiguration(
-            CameraConfiguration(
-                flashMode = if(flashState == FlashState.ON) off() else torch()
-            )
-        )
-
-        if(flashState == FlashState.ON) flashState = FlashState.OFF else flashState = FlashState.ON
-    }
-
-    //Checking Permission and Taking a Picture and Storing it inside the android device
-    fun cameraTakePicture(view: View) {
-        val filename = "text.png"
-        val sd = Environment.getExternalStorageDirectory() //Need to Change This
-        val dest = File(sd, filename)
-        if(hasNoCameraPermissions()){
-            requestCameraPermission()
-        }else{
-            fotoapparat?.takePicture()?.saveToFile(dest)
-            Toast.makeText(this, "Picture Taken", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    //Switch between front and back camera when the button is pressed
-    fun cameraSwitch(view: View){
-        fotoapparat?.switchTo(
-            lensPosition = if(cameraStatus == CameraState.BACK) front() else back(),
-            cameraConfiguration = CameraConfiguration()
-        )
-        if(cameraStatus == CameraState.BACK) cameraStatus = CameraState.FRONT else cameraStatus = CameraState.BACK
-    }
-
-    //Check user's permission of camera
-    private fun hasNoCameraPermissions(): Boolean{
-        return ContextCompat.checkSelfPermission(this,
-            android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
-            android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-    }
-
-    //Requests User's permission of camera
-    private fun requestCameraPermission(){
-        val permissions = arrayOf(android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE)
-        permissions.let { ActivityCompat.requestPermissions(this, it, 0) }
-    }
-
-    //Create fotoapparat variable
-    private fun createFotoApparant(){
-        val cameraView = findViewById<CameraView>(R.id.CameraView_cameraView)
-
-        fotoapparat = Fotoapparat(
-            context = this,
-            view = cameraView,
-            scaleType = ScaleType.CenterCrop,
-            lensPosition = back(),
-            logger = loggers(
-                logcat()
-            ),
-            cameraErrorCallback = { error ->
-                println("Recorder errors: $error")
+    //returns the result of requesting permission (i.e. failed obtaining permission)
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray){
+        if( requestCode == REQUEST_CODE_PERMISSION){
+            if(allPermissionsGranted()){
+                cameraPreview.post{startCamera()}
+            }else{
+                Toast.makeText(this, "Permission(s) not granted", Toast.LENGTH_SHORT).show()
+                finish()
             }
-        )
+        }
     }
 
-    //Start the preview of the Camera
-    override fun onStart(){
+    //checking if all permissions are granted
+    private fun allPermissionsGranted(): Boolean{
+        for(permission in REQUIRED_PERMISSION){
+            if(ContextCompat.checkSelfPermission(this, permission) !=
+                PackageManager.PERMISSION_GRANTED){
+                return false
+            }
+        }
+        return true
+    }
+
+    //starting camera
+    private fun startCamera(){
+        CameraX.unbindAll()
+
+        val previewConfig = PreviewConfig.Builder().apply {
+            setTargetResolution(Size(640,480))
+            setLensFacing(CameraX.LensFacing.BACK)
+        }.build()
+        val preview = Preview(previewConfig)
+
+        val videoCaptureConfig = VideoCaptureConfig.Builder().apply{
+            setTargetRotation(cameraPreview.display.rotation)
+        }.build()
+
+        videoCapture = VideoCapture(videoCaptureConfig)
+
+        preview.setOnPreviewOutputUpdateListener{
+            cameraPreview.surfaceTexture = it.surfaceTexture
+        }
+
+        CameraX.bindToLifecycle(this as LifecycleOwner, videoCapture, preview)
+    }
+
+    //turn on flash light
+    private fun turnFlashlightOn() {
+        try {
+            val camManager = this.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+            val cameraId = camManager.cameraIdList[0]
+            camManager.setTorchMode(cameraId, true)
+        } catch (e: CameraAccessException) {
+            e.printStackTrace()
+        }
+    }
+
+    //turn on flash light
+    private fun turnFlashlightOff() {
+        try {
+            val camManager = this.getSystemService(Context.CAMERA_SERVICE) as CameraManager
+            val cameraId = camManager.cameraIdList[0]
+            camManager.setTorchMode(cameraId, false)
+        } catch (e: CameraAccessException) {
+            e.printStackTrace()
+        }
+    }
+
+    //Enum class to see if the record button is recording or not
+    enum class recordingState{
+        RECORDING, NOTRECORDING
+    }
+
+    //Enum class to see if the flash button is on or not
+    enum class flashState{
+        ON, OFF
+    }
+
+    override fun onStart() {
         super.onStart()
-        if( hasNoCameraPermissions() ){
-            requestCameraPermission()
+        //check if all permission has been give, else request permission
+        if(allPermissionsGranted()){
+            cameraPreview.post{startCamera()}
         }else{
-            fotoapparat?.start()
-            fotoapparatState = FotoapparatState.ON
+            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSION, REQUEST_CODE_PERMISSION)
         }
-    }
-
-    //Resume the preview of the Camera
-    override fun onResume(){
-        super.onResume()
-        if(!hasNoCameraPermissions() && fotoapparatState == FotoapparatState.OFF){
-            startActivity(Intent(applicationContext, Camera::class.java))
-            finish()
-        }
-    }
-
-    //Stop the preview of the Camera
-    override fun onStop(){
-        super.onStop()
-        fotoapparat?.stop()
-        FotoapparatState.OFF
-    }
-
-    //Enum class for FotoappratStatus
-    enum class FotoapparatState{
-        ON, OFF
-    }
-
-    //Enum class for CameraState
-    enum class CameraState{
-        FRONT, BACK
-    }
-
-    //Enum class for FlashState
-    enum class FlashState{
-        ON, OFF
     }
 }
