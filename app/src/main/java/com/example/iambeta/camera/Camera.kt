@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.example.iambeta.R
 import com.example.iambeta.mainPage.MainActivity
+import com.example.iambeta.storage.UploadActivity
 import java.io.File
 
 //variables for requesting permission
@@ -59,7 +60,7 @@ class Camera : AppCompatActivity() {
                 recordingStatus = recordingState.RECORDING
                 recordButton.setImageResource(R.drawable.camera_stop_record_vector)
                 videoCapture.startRecording(file, object:VideoCapture.OnVideoSavedListener{
-                    //saved to: /storage/emulated/0/Android/media/[this.package.name]
+                    //saved to: /internalstorage/Android/media/com.example.iambeta
                     override fun onVideoSaved(file: File?) {
                         Log.i(tag, "Video File: $file")
                     }
@@ -72,7 +73,7 @@ class Camera : AppCompatActivity() {
                 recordingStatus = recordingState.NOTRECORDING
                 recordButton.setImageResource(R.drawable.camera_record_vector)
                 videoCapture.stopRecording()
-                Toast.makeText(this, "Saved to /storage/emulated/0/Android/media/[your.package.name]", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Saved to /internalstorage/Android/media/com.example.iambeta", Toast.LENGTH_SHORT).show()
                 Log.i(tag, "Video File Stopped")
             }
         }
@@ -99,6 +100,11 @@ class Camera : AppCompatActivity() {
     fun cameraToMainPage(view: View){
         startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
+    }
+
+    //Opening Upload Page from Camera Page
+    fun cameraToUploadPage(view: View){
+        startActivity(Intent(applicationContext, UploadActivity::class.java))
     }
 
     //returns the result of requesting permission (i.e. failed obtaining permission)

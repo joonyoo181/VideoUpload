@@ -9,18 +9,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
+        android:gravity="center"
         android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/customImageView"
         android:layout_width="match_parent"
-        android:layout_height="287dp"
+        android:layout_height="300dp"
         app:srcCompat="@drawable/googleg_standard_color_18" />
 
     <TextView
         android:id="@+id/customCommentText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:text="Comment"
         android:textSize="24sp" />
 </LinearLayout>

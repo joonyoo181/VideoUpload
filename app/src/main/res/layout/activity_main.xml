@@ -8,30 +8,6 @@
     android:background="@color/darkcyan"
     tools:context=".mainPage.MainActivity">
 
-    <VideoView
-        android:id="@+id/Video_mainVideo"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Text_mainStory"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/Text_mainStory"
-        android:layout_width="180dp"
-        android:layout_height="40dp"
-        android:text="Today's Story..."
-        android:textColor="@color/lightgray"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.318"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.136" />
-
     <TextView
         android:id="@+id/Text_mainPostUser"
         android:layout_width="100dp"
@@ -41,23 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.736"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/Text_mainVideoDescription"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:text="Description"
-        android:textColor="@color/lightgray"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
-        app:layout_constraintVertical_bias="0.3" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -95,45 +55,15 @@
         android:id="@+id/Button_mainVideoComments"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:background="@drawable/circle_buttons"
+        android:backgroundTint="@color/lightcyan"
         android:text="C"
-        android:background="@drawable/circle_buttons"
-        android:backgroundTint="@color/lightcyan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.242"
+        app:layout_constraintHorizontal_bias="0.274"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
-        app:layout_constraintVertical_bias="0.005" />
-
-    <Button
-        android:id="@+id/upload"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/circle_buttons"
-        android:backgroundTint="@color/lightcyan"
-        android:onClick="mainToUploadPage"
-        android:text="U"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.353"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
-        app:layout_constraintVertical_bias="0.006" />
-
-    <Button
-        android:id="@+id/otherFeed"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/circle_buttons"
-        android:backgroundTint="@color/lightcyan"
-        android:onClick="mainToOtherFeed"
-        android:text="O"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Video_mainVideo"
-        app:layout_constraintVertical_bias="0.006" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.046" />
 
     <Button
         android:id="@+id/main_mainToMainPage"
@@ -146,7 +76,7 @@
         app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintVertical_bias="1" />
 
     <Button
         android:id="@+id/Button_mainToDiscoverPage"
@@ -158,7 +88,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintVertical_bias="1" />
 
     <Button
         android:id="@+id/Button_mainToProfilePage"
@@ -172,6 +102,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintVertical_bias="1" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="410dp"
+        android:layout_height="600dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
