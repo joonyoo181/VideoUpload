@@ -60,13 +60,11 @@ class MainActivity : AppCompatActivity() {
     //Opening Camera from Main Page
     fun mainToCamera(view: View){
         startActivity(Intent(applicationContext, Camera::class.java))
-        finish()
     }
 
     //Opening Profile Page from Main Page
     fun mainToProfilePage(view: View){
         startActivity(Intent(applicationContext, ProfilePage::class.java))
-        finish()
     }
 
     //Obtaining data from firebase
