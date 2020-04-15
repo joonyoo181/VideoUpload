@@ -19,7 +19,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.example.iambeta.R
-import com.example.iambeta.mainPage.MainActivity
 import com.example.iambeta.storage.UploadActivity
 import java.io.File
 
@@ -98,7 +97,6 @@ class Camera : AppCompatActivity() {
 
     //Opening MainPage from Camera Page
     fun cameraToMainPage(view: View){
-        startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
     }
 
