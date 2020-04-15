@@ -20,6 +20,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.example.iambeta.R
 import com.example.iambeta.storage.UploadActivity
+import kotlinx.android.synthetic.main.activity_camera.*
 import java.io.File
 
 //variables for requesting permission
@@ -44,9 +45,9 @@ class Camera : AppCompatActivity() {
         setContentView(R.layout.activity_camera)
 
         //initializing variables for recording videos
-        cameraPreview = findViewById(R.id.camera_CameraPreview)
-        recordButton = findViewById(R.id.camera_CameraRecord)
-        flashButton = findViewById(R.id.camera_CameraFlash)
+        cameraPreview = findViewById(R.id.TextureView_cameraPreview)
+        recordButton = findViewById(R.id.Button_cameraRecord)
+        flashButton = findViewById(R.id.Button_cameraFlash)
         recordingStatus = recordingState.NOTRECORDING
         flashStatus = flashState.OFF
 
@@ -58,6 +59,9 @@ class Camera : AppCompatActivity() {
             if(recordingStatus == recordingState.NOTRECORDING) {
                 recordingStatus = recordingState.RECORDING
                 recordButton.setImageResource(R.drawable.camera_stop_record_vector)
+                Button_cameraToMainPage.visibility = View.GONE
+                Button_cameraFlash.visibility = View.GONE
+                Button_cameraUpload.visibility = View.GONE
                 videoCapture.startRecording(file, object:VideoCapture.OnVideoSavedListener{
                     //saved to: /internalstorage/Android/media/com.example.iambeta
                     override fun onVideoSaved(file: File?) {
@@ -72,6 +76,9 @@ class Camera : AppCompatActivity() {
                 recordingStatus = recordingState.NOTRECORDING
                 recordButton.setImageResource(R.drawable.camera_record_vector)
                 videoCapture.stopRecording()
+                Button_cameraToMainPage.visibility = View.VISIBLE
+                Button_cameraFlash.visibility = View.VISIBLE
+                Button_cameraUpload.visibility = View.VISIBLE
                 Toast.makeText(this, "Saved to /internalstorage/Android/media/com.example.iambeta", Toast.LENGTH_SHORT).show()
                 Log.i(tag, "Video File Stopped")
             }

@@ -8,7 +8,7 @@
     tools:context=".camera.Camera">
 
     <TextureView
-        android:id="@+id/camera_CameraPreview"
+        android:id="@+id/TextureView_cameraPreview"
         android:layout_width="match_parent"
         android:layout_height="550dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,7 +18,7 @@
         app:layout_constraintVertical_bias="0.5"/>
 
     <Button
-        android:id="@+id/camera_CameraToMainPage"
+        android:id="@+id/Button_cameraToMainPage"
         android:layout_width="65dp"
         android:layout_height="50dp"
         android:onClick="cameraToMainPage"
@@ -31,7 +31,7 @@
         app:layout_constraintVertical_bias="0.05" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/camera_CameraRecord"
+        android:id="@+id/Button_cameraRecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/camera_record_vector"
@@ -43,7 +43,7 @@
         app:layout_constraintVertical_bias="0.95" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/camera_CameraFlash"
+        android:id="@+id/Button_cameraFlash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/camera_flash_on_vector"
@@ -55,7 +55,7 @@
         app:layout_constraintVertical_bias="0.05" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/camera_CameraUpload"
+        android:id="@+id/Button_cameraUpload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/camera_upload_vector"
