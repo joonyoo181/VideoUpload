@@ -2,6 +2,7 @@ package com.example.iambeta.authentication
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -32,28 +33,71 @@ class SignInActivity : AppCompatActivity() {
     }
 
     fun signIn(view: View) {
-        mAuth!!.signInWithEmailAndPassword(emailText.text.toString(), passwordText.text.toString())
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
-                    startActivity(Intent(applicationContext, FirstPopUp::class.java))
-                    finish()
-                }
-            }.addOnFailureListener { exception ->
-                Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
+        val email = emailText.text.toString().trim()
+        val password = passwordText.text.toString().trim()
+
+        when {
+            TextUtils.isEmpty(email) -> {
+                Toast.makeText(applicationContext, "Please enter your email", Toast.LENGTH_SHORT)
+                    .show()
             }
+            TextUtils.isEmpty(password) -> {
+                Toast.makeText(applicationContext, "Please enter your password", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            else -> {
+                mAuth!!.signInWithEmailAndPassword(
+                    emailText.text.toString(),
+                    passwordText.text.toString()
+                )
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            startActivity(Intent(applicationContext, MainActivity::class.java))
+                            startActivity(Intent(applicationContext, FirstPopUp::class.java))
+                            finish()
+                        }
+                    }.addOnFailureListener { exception ->
+                        Toast.makeText(
+                            applicationContext,
+                            exception.localizedMessage,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+            }
+        }
     }
 
     fun signUp(view: View) {
-        mAuth!!.createUserWithEmailAndPassword(emailText.text.toString(), passwordText.text.toString())
-            .addOnCompleteListener{ task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(applicationContext,"User Created", Toast.LENGTH_SHORT).show()
-                    //intent
-                }
-            }.addOnFailureListener { exception ->
-                Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
+        val email = emailText.text.toString().trim()
+        val password = passwordText.text.toString().trim()
+
+        when {
+            TextUtils.isEmpty(email) -> {
+                Toast.makeText(applicationContext, "Please enter your email", Toast.LENGTH_SHORT).show()
             }
+            TextUtils.isEmpty(password) -> {
+                Toast.makeText(applicationContext, "Please enter your password", Toast.LENGTH_SHORT).show()
+            }
+            else -> {
+                mAuth!!.createUserWithEmailAndPassword(
+                    emailText.text.toString(),
+                    passwordText.text.toString()
+                )
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(applicationContext, "User Created", Toast.LENGTH_SHORT)
+                                .show()
+                            //intent
+                        }
+                    }.addOnFailureListener { exception ->
+                        Toast.makeText(
+                            applicationContext,
+                            exception.localizedMessage,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+            }
+        }
     }
 
     fun forgotPassword(view: View){
