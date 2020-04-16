@@ -112,14 +112,19 @@ class Camera : AppCompatActivity() {
 
         //if switch camera button is clicked
         Button_cameraSwitch.setOnClickListener{
-            if(switchStatus == switchState.BACK){
-                switchStatus = switchState.FRONT
-                Button_cameraFlash.visibility = View.GONE
-                CameraView_cameraPreview.cameraLensFacing = CameraSelector.LENS_FACING_FRONT
+            if(CameraView_cameraPreview.hasCameraWithLensFacing(CameraSelector.LENS_FACING_BACK) ||
+                    CameraView_cameraPreview.hasCameraWithLensFacing(CameraSelector.LENS_FACING_FRONT)) {
+                if(switchStatus == switchState.BACK){
+                    switchStatus = switchState.FRONT
+                    Button_cameraFlash.visibility = View.GONE
+                    CameraView_cameraPreview.cameraLensFacing = CameraSelector.LENS_FACING_FRONT
+                }else{
+                    switchStatus = switchState.BACK
+                    Button_cameraFlash.visibility = View.VISIBLE
+                    CameraView_cameraPreview.cameraLensFacing = CameraSelector.LENS_FACING_BACK
+                }
             }else{
-                switchStatus = switchState.BACK
-                Button_cameraFlash.visibility = View.VISIBLE
-                CameraView_cameraPreview.cameraLensFacing = CameraSelector.LENS_FACING_BACK
+                Toast.makeText(applicationContext, "Unable to switch camera", Toast.LENGTH_SHORT).show()
             }
         }
     }
