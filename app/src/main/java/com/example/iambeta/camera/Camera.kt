@@ -2,11 +2,8 @@ package com.example.iambeta.camera
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.hardware.camera2.CameraAccessException
-import android.hardware.camera2.CameraManager
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
@@ -38,6 +35,7 @@ class Camera : AppCompatActivity() {
     private lateinit var meter: Chronometer
 
     //declaring variables for recording videos
+    private lateinit var preview: Preview
     private lateinit var cameraPreview: TextureView
     private lateinit var recordButton: com.google.android.material.floatingactionbutton.FloatingActionButton
     private lateinit var flashButton: com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -105,12 +103,12 @@ class Camera : AppCompatActivity() {
                     Toast.makeText(this, "Flash Turned On", Toast.LENGTH_SHORT).show()
                     flashStatus = flashState.ON
                     flashButton.setImageResource(R.drawable.camera_flash_off_vector)
-                    turnFlashlightOn()
+                    preview.enableTorch(true)
                 } else if (flashStatus == flashState.ON) {
                     Toast.makeText(this, "Flash Turned Off", Toast.LENGTH_SHORT).show()
                     flashStatus = flashState.OFF
                     flashButton.setImageResource(R.drawable.camera_flash_on_vector)
-                    turnFlashlightOff()
+                    preview.enableTorch(false)
                 }
             }
         }
@@ -157,7 +155,7 @@ class Camera : AppCompatActivity() {
             setTargetResolution(Size(640,480))
             setLensFacing(CameraX.LensFacing.BACK)
         }.build()
-        val preview = Preview(previewConfig)
+        preview = Preview(previewConfig)
 
         val videoCaptureConfig = VideoCaptureConfig.Builder().apply{
             setTargetRotation(cameraPreview.display.rotation)
@@ -170,28 +168,6 @@ class Camera : AppCompatActivity() {
         }
 
         CameraX.bindToLifecycle(this as LifecycleOwner, videoCapture, preview)
-    }
-
-    //turn on flash light
-    private fun turnFlashlightOn() {
-        try {
-            val camManager = this.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-            val cameraId = camManager.cameraIdList[0]
-            camManager.setTorchMode(cameraId, true)
-        } catch (e: CameraAccessException) {
-            e.printStackTrace()
-        }
-    }
-
-    //turn on flash light
-    private fun turnFlashlightOff() {
-        try {
-            val camManager = this.getSystemService(Context.CAMERA_SERVICE) as CameraManager
-            val cameraId = camManager.cameraIdList[0]
-            camManager.setTorchMode(cameraId, false)
-        } catch (e: CameraAccessException) {
-            e.printStackTrace()
-        }
     }
 
     //Enum class to see if the record button is recording or not
