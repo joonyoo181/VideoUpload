@@ -8,10 +8,12 @@ import android.content.pm.PackageManager
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.util.Size
 import android.view.TextureView
 import android.view.View
+import android.widget.Chronometer
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.*
@@ -32,6 +34,9 @@ val tag = Camera::class.java.simpleName
 @SuppressLint("RestrictedApi")
 class Camera : AppCompatActivity() {
 
+    //declaring variables for stopwatch
+    private lateinit var meter: Chronometer
+
     //declaring variables for recording videos
     private lateinit var cameraPreview: TextureView
     private lateinit var recordButton: com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -43,6 +48,10 @@ class Camera : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
+
+        //initializing variables for stopwatch
+        meter = findViewById(R.id.Chronometer_cameraStopWatchTimer)
+        meter.visibility = View.GONE
 
         //initializing variables for recording videos
         cameraPreview = findViewById(R.id.TextureView_cameraPreview)
@@ -62,6 +71,9 @@ class Camera : AppCompatActivity() {
                 Button_cameraToMainPage.visibility = View.GONE
                 Button_cameraFlash.visibility = View.GONE
                 Button_cameraUpload.visibility = View.GONE
+                meter.visibility = View.VISIBLE
+                meter.base = SystemClock.elapsedRealtime()
+                meter.start()
                 videoCapture.startRecording(file, object:VideoCapture.OnVideoSavedListener{
                     //saved to: /internalstorage/Android/media/com.example.iambeta
                     override fun onVideoSaved(file: File?) {
@@ -79,6 +91,8 @@ class Camera : AppCompatActivity() {
                 Button_cameraToMainPage.visibility = View.VISIBLE
                 Button_cameraFlash.visibility = View.VISIBLE
                 Button_cameraUpload.visibility = View.VISIBLE
+                meter.visibility = View.GONE
+                meter.stop()
                 Toast.makeText(this, "Saved to /internalstorage/Android/media/com.example.iambeta", Toast.LENGTH_SHORT).show()
                 Log.i(tag, "Video File Stopped")
             }
