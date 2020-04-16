@@ -48,11 +48,15 @@ class SignInActivity : AppCompatActivity() {
         mAuth!!.createUserWithEmailAndPassword(emailText.text.toString(), passwordText.text.toString())
             .addOnCompleteListener{ task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(applicationContext,"User Created", Toast.LENGTH_LONG).show()
+                    Toast.makeText(applicationContext,"User Created", Toast.LENGTH_SHORT).show()
                     //intent
                 }
             }.addOnFailureListener { exception ->
                 Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
             }
+    }
+
+    fun forgotPassword(view: View){
+        startActivity(Intent(applicationContext, ForgotPasswordActivity::class.java))
     }
 }
