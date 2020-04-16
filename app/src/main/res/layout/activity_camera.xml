@@ -7,10 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".camera.Camera">
 
-    <TextureView
-        android:id="@+id/TextureView_cameraPreview"
+    <androidx.camera.view.CameraView
+        android:id="@+id/CameraView_cameraPreview"
         android:layout_width="match_parent"
         android:layout_height="550dp"
+        app:lensFacing="back"
+        app:scaleType="centerCrop"
+        app:pinchToZoomEnabled="true"
+        app:captureMode="mixed"
+        app:flash="auto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -22,14 +27,14 @@
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:textSize="20sp"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/TextureView_cameraPreview"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/CameraView_cameraPreview"
+        app:layout_constraintEnd_toEndOf="@+id/CameraView_cameraPreview"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="@+id/CameraView_cameraPreview"
+        app:layout_constraintTop_toTopOf="@+id/CameraView_cameraPreview"
+        app:layout_constraintVertical_bias="1"/>
 
     <Button
         android:id="@+id/Button_cameraToMainPage"
@@ -53,8 +58,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintTop_toBottomOf="@id/CameraView_cameraPreview"
+        app:layout_constraintVertical_bias="0.5" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/Button_cameraFlash"
@@ -75,10 +80,23 @@
         android:src="@drawable/camera_upload_vector"
         android:onClick="cameraToUploadPage"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintEnd_toStartOf="@+id/Button_cameraRecord"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.95" />
+        app:layout_constraintTop_toBottomOf="@id/CameraView_cameraPreview"
+        app:layout_constraintVertical_bias="0.5" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/Button_cameraSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/camera_switch_vector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/Button_cameraRecord"
+        app:layout_constraintTop_toBottomOf="@id/CameraView_cameraPreview"
+        app:layout_constraintVertical_bias="0.5" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

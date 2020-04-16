@@ -1,47 +1,42 @@
 package com.example.iambeta.camera
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Environment
 import android.os.SystemClock
 import android.util.Log
-import android.util.Size
-import android.view.TextureView
 import android.view.View
 import android.widget.Chronometer
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.*
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.VideoCapture
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LifecycleOwner
 import com.example.iambeta.R
 import com.example.iambeta.storage.UploadActivity
 import kotlinx.android.synthetic.main.activity_camera.*
 import java.io.File
 
 //variables for requesting permission
-private const val REQUEST_CODE_PERMISSION = 10
-private val REQUIRED_PERMISSION = arrayOf(Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO)
-val tag = Camera::class.java.simpleName
+private const val REQUEST_CODE_PERMISSION = 101
+var CAMERA_PERMISSION = Manifest.permission.CAMERA
+var RECORD_AUDIO_PERMISSION = Manifest.permission.RECORD_AUDIO
+private val REQUIRED_PERMISSION = arrayOf(CAMERA_PERMISSION, RECORD_AUDIO_PERMISSION)
+val TAG = Camera::class.java.simpleName
 
-//SupressLint used to ignore methods that show error due to camerax bugs
-@SuppressLint("RestrictedApi")
 class Camera : AppCompatActivity() {
 
     //declaring variables for stopwatch
     private lateinit var meter: Chronometer
 
-    //declaring variables for recording videos
-    private lateinit var preview: Preview
-    private lateinit var cameraPreview: TextureView
-    private lateinit var recordButton: com.google.android.material.floatingactionbutton.FloatingActionButton
-    private lateinit var flashButton: com.google.android.material.floatingactionbutton.FloatingActionButton
+    //declaring variables for camera
     private var recordingStatus: recordingState? = null
     private var flashStatus: flashState? = null
-    private lateinit var videoCapture: VideoCapture
+    private var switchStatus: switchState? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,65 +46,80 @@ class Camera : AppCompatActivity() {
         meter = findViewById(R.id.Chronometer_cameraStopWatchTimer)
         meter.visibility = View.GONE
 
-        //initializing variables for recording videos
-        cameraPreview = findViewById(R.id.TextureView_cameraPreview)
-        recordButton = findViewById(R.id.Button_cameraRecord)
-        flashButton = findViewById(R.id.Button_cameraFlash)
+        //initializing variables for camera
         recordingStatus = recordingState.NOTRECORDING
         flashStatus = flashState.OFF
+        switchStatus = switchState.BACK
 
         //variable for storing the video/recording
-        val file = File(externalMediaDirs.first(), "${System.currentTimeMillis()}.mp4")
+        val recordFiles = ContextCompat.getExternalFilesDirs(this, Environment.DIRECTORY_MOVIES)
+        val storageDirectory = recordFiles[0]
+        val fileStorage = "${System.currentTimeMillis()}.mp4"
 
         //if record button is clicked
-        recordButton.setOnClickListener{
+        Button_cameraRecord.setOnClickListener{
             if(recordingStatus == recordingState.NOTRECORDING) {
                 recordingStatus = recordingState.RECORDING
-                recordButton.setImageResource(R.drawable.camera_stop_record_vector)
+                Button_cameraRecord.setImageResource(R.drawable.camera_stop_record_vector)
                 Button_cameraToMainPage.visibility = View.GONE
                 Button_cameraFlash.visibility = View.GONE
                 Button_cameraUpload.visibility = View.GONE
+                Button_cameraSwitch.visibility = View.GONE
                 meter.visibility = View.VISIBLE
                 meter.base = SystemClock.elapsedRealtime()
                 meter.start()
-                videoCapture.startRecording(file, object:VideoCapture.OnVideoSavedListener{
-                    //saved to: /internalstorage/Android/media/com.example.iambeta
-                    override fun onVideoSaved(file: File?) {
-                        Log.i(tag, "Video File: $file")
+                CameraView_cameraPreview.startRecording(File(externalMediaDirs.first(), fileStorage), ContextCompat.getMainExecutor(this), object: VideoCapture.OnVideoSavedCallback {
+                    override fun onVideoSaved(file: File) {
+                        Log.d(TAG, "onVideoSaved $fileStorage")
                     }
 
-                    override fun onError(useCaseError: VideoCapture.UseCaseError?, message: String?, cause: Throwable?){
-                        Log.i(tag, "Video Error: $message")
+                    override fun onError(videoCaptureError: Int, message: String, cause: Throwable?) {
+                        Toast.makeText(applicationContext, "Recording Failed", Toast.LENGTH_SHORT).show()
+                        Log.e(TAG, "onError $videoCaptureError $message")
                     }
                 })
             }else if(recordingStatus == recordingState.RECORDING){
                 recordingStatus = recordingState.NOTRECORDING
-                recordButton.setImageResource(R.drawable.camera_record_vector)
-                videoCapture.stopRecording()
+                Button_cameraRecord.setImageResource(R.drawable.camera_record_vector)
+                CameraView_cameraPreview.stopRecording()
                 Button_cameraToMainPage.visibility = View.VISIBLE
                 Button_cameraFlash.visibility = View.VISIBLE
                 Button_cameraUpload.visibility = View.VISIBLE
+                Button_cameraSwitch.visibility = View.VISIBLE
                 meter.visibility = View.GONE
                 meter.stop()
                 Toast.makeText(this, "Saved to /internalstorage/Android/media/com.example.iambeta", Toast.LENGTH_SHORT).show()
-                Log.i(tag, "Video File Stopped")
+                Log.i(TAG, "Video File Stopped")
             }
         }
 
-        //if flash button is click
-        flashButton.setOnClickListener{
+        //if flash button is clicked
+        Button_cameraFlash.setOnClickListener{
             if(this.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH)) {
                 if (flashStatus == flashState.OFF) {
                     Toast.makeText(this, "Flash Turned On", Toast.LENGTH_SHORT).show()
                     flashStatus = flashState.ON
-                    flashButton.setImageResource(R.drawable.camera_flash_off_vector)
-                    preview.enableTorch(true)
+                    Button_cameraFlash.setImageResource(R.drawable.camera_flash_off_vector)
+                    CameraView_cameraPreview.enableTorch(true)
                 } else if (flashStatus == flashState.ON) {
                     Toast.makeText(this, "Flash Turned Off", Toast.LENGTH_SHORT).show()
                     flashStatus = flashState.OFF
-                    flashButton.setImageResource(R.drawable.camera_flash_on_vector)
-                    preview.enableTorch(false)
+                    Button_cameraFlash.setImageResource(R.drawable.camera_flash_on_vector)
+                    CameraView_cameraPreview.enableTorch(false)
                 }
+            }
+        }
+
+        //if switch camera button is clicked
+        Button_cameraSwitch.setOnClickListener{
+            if(switchStatus == switchState.BACK){
+                switchStatus = switchState.FRONT
+                Button_cameraFlash.visibility = View.GONE
+                CameraView_cameraPreview.cameraLensFacing = CameraSelector.LENS_FACING_FRONT
+            }else{
+                switchStatus = switchState.BACK
+                Button_cameraFlash.visibility = View.VISIBLE
+                CameraView_cameraPreview.cameraLensFacing = CameraSelector.LENS_FACING_BACK
             }
         }
     }
@@ -125,49 +135,44 @@ class Camera : AppCompatActivity() {
     }
 
     //returns the result of requesting permission (i.e. failed obtaining permission)
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray){
-        if( requestCode == REQUEST_CODE_PERMISSION){
-            if(allPermissionsGranted()){
-                cameraPreview.post{startCamera()}
-            }else{
-                Toast.makeText(this, "Permission(s) not granted", Toast.LENGTH_SHORT).show()
-                finish()
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when(requestCode) {
+            REQUEST_CODE_PERMISSION -> {
+                var allPermissionsGranted = false
+                for (result in grantResults) {
+                    if (result != PackageManager.PERMISSION_GRANTED) {
+                        allPermissionsGranted = false
+                        break
+                    } else {
+                        allPermissionsGranted = true
+                    }
+                }
+                if (allPermissionsGranted) openCamera() else permissionsNotGranted()
             }
         }
     }
 
     //checking if all permissions are granted
     private fun allPermissionsGranted(): Boolean{
-        for(permission in REQUIRED_PERMISSION){
-            if(ContextCompat.checkSelfPermission(this, permission) !=
-                PackageManager.PERMISSION_GRANTED){
-                return false
+        return ((ActivityCompat.checkSelfPermission(this, CAMERA_PERMISSION)) == PackageManager.PERMISSION_GRANTED
+                && (ActivityCompat.checkSelfPermission(this, RECORD_AUDIO_PERMISSION)) == PackageManager.PERMISSION_GRANTED)
+    }
+
+    //Inserts a dialog if permission is not granted
+    private fun permissionsNotGranted() {
+        AlertDialog.Builder(this).setTitle("Permissions required")
+            .setMessage("These permissions are required to use this app. Please allow Camera and Audio permissions first")
+            .setCancelable(false)
+            .setPositiveButton("Grant"){
+                    dialog, which -> ActivityCompat.requestPermissions(this, REQUIRED_PERMISSION, REQUEST_CODE_PERMISSION)
             }
-        }
-        return true
+            .show()
     }
 
     //starting camera
-    private fun startCamera(){
-        CameraX.unbindAll()
-
-        val previewConfig = PreviewConfig.Builder().apply {
-            setTargetResolution(Size(640,480))
-            setLensFacing(CameraX.LensFacing.BACK)
-        }.build()
-        preview = Preview(previewConfig)
-
-        val videoCaptureConfig = VideoCaptureConfig.Builder().apply{
-            setTargetRotation(cameraPreview.display.rotation)
-        }.build()
-
-        videoCapture = VideoCapture(videoCaptureConfig)
-
-        preview.setOnPreviewOutputUpdateListener{
-            cameraPreview.surfaceTexture = it.surfaceTexture
-        }
-
-        CameraX.bindToLifecycle(this as LifecycleOwner, videoCapture, preview)
+    private fun openCamera(){
+        CameraView_cameraPreview.bindToLifecycle(this)
     }
 
     //Enum class to see if the record button is recording or not
@@ -180,11 +185,16 @@ class Camera : AppCompatActivity() {
         ON, OFF
     }
 
+    //Enum class to see if the camera view is front or back
+    enum class switchState{
+        FRONT, BACK
+    }
+
     override fun onStart() {
         super.onStart()
         //check if all permission has been give, else request permission
         if(allPermissionsGranted()){
-            cameraPreview.post{startCamera()}
+            openCamera()
         }else{
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSION, REQUEST_CODE_PERMISSION)
         }
