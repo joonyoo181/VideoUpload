@@ -4,11 +4,10 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Environment
 import android.os.SystemClock
 import android.util.Log
 import android.view.View
-import android.widget.Chronometer
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -30,21 +29,17 @@ val TAG = Camera::class.java.simpleName
 
 class Camera : AppCompatActivity() {
 
-    //declaring variables for stopwatch
-    private lateinit var meter: Chronometer
-
     //declaring variables for camera
     private var recordingStatus: recordingState? = null
     private var flashStatus: flashState? = null
     private var switchStatus: switchState? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_camera)
 
-        //initializing variables for stopwatch
-        meter = findViewById(R.id.Chronometer_cameraStopWatchTimer)
-        meter.visibility = View.GONE
+        //stopwatch starting invisible
+        Chronometer_cameraStopWatchTimer.visibility = View.GONE
 
         //initializing variables for camera
         recordingStatus = recordingState.NOTRECORDING
@@ -52,8 +47,6 @@ class Camera : AppCompatActivity() {
         switchStatus = switchState.BACK
 
         //variable for storing the video/recording
-        val recordFiles = ContextCompat.getExternalFilesDirs(this, Environment.DIRECTORY_MOVIES)
-        val storageDirectory = recordFiles[0]
         val fileStorage = "${System.currentTimeMillis()}.mp4"
 
         //if record button is clicked
@@ -65,9 +58,9 @@ class Camera : AppCompatActivity() {
                 Button_cameraFlash.visibility = View.GONE
                 Button_cameraUpload.visibility = View.GONE
                 Button_cameraSwitch.visibility = View.GONE
-                meter.visibility = View.VISIBLE
-                meter.base = SystemClock.elapsedRealtime()
-                meter.start()
+                Chronometer_cameraStopWatchTimer.visibility = View.VISIBLE
+                Chronometer_cameraStopWatchTimer.base = SystemClock.elapsedRealtime()
+                Chronometer_cameraStopWatchTimer.start()
                 CameraView_cameraPreview.startRecording(File(externalMediaDirs.first(), fileStorage), ContextCompat.getMainExecutor(this), object: VideoCapture.OnVideoSavedCallback {
                     override fun onVideoSaved(file: File) {
                         Log.d(TAG, "onVideoSaved $fileStorage")
@@ -86,8 +79,8 @@ class Camera : AppCompatActivity() {
                 Button_cameraFlash.visibility = View.VISIBLE
                 Button_cameraUpload.visibility = View.VISIBLE
                 Button_cameraSwitch.visibility = View.VISIBLE
-                meter.visibility = View.GONE
-                meter.stop()
+                Chronometer_cameraStopWatchTimer.visibility = View.GONE
+                Chronometer_cameraStopWatchTimer.stop()
                 Toast.makeText(this, "Saved to /internalstorage/Android/media/com.example.iambeta", Toast.LENGTH_SHORT).show()
                 Log.i(TAG, "Video File Stopped")
             }
@@ -127,6 +120,15 @@ class Camera : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Unable to switch camera", Toast.LENGTH_SHORT).show()
             }
         }
+
+        //zoom slider
+        SeekBar_cameraZoomSlider.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                CameraView_cameraPreview.zoomRatio =  progress/100.toFloat()
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {}
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {}
+        })
     }
 
     //Opening MainPage from Camera Page

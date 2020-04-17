@@ -10,17 +10,17 @@
     <androidx.camera.view.CameraView
         android:id="@+id/CameraView_cameraPreview"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
-        app:lensFacing="back"
-        app:scaleType="centerCrop"
-        app:pinchToZoomEnabled="true"
+        android:layout_height="500dp"
         app:captureMode="mixed"
         app:flash="auto"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"/>
+        app:layout_constraintVertical_bias="0.4"
+        app:lensFacing="back"
+        app:pinchToZoomEnabled="true"
+        app:scaleType="centerCrop" />
 
     <Chronometer
         android:id="@+id/Chronometer_cameraStopWatchTimer"
@@ -97,6 +97,16 @@
         app:layout_constraintStart_toEndOf="@id/Button_cameraRecord"
         app:layout_constraintTop_toBottomOf="@id/CameraView_cameraPreview"
         app:layout_constraintVertical_bias="0.5" />
+
+    <SeekBar
+        android:id="@+id/SeekBar_cameraZoomSlider"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/Button_cameraRecord"
+        app:layout_constraintEnd_toEndOf="@+id/Button_cameraRecord"
+        app:layout_constraintStart_toStartOf="@+id/Button_cameraRecord"
+        app:layout_constraintTop_toBottomOf="@+id/CameraView_cameraPreview"
+        app:layout_constraintVertical_bias="0.5"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
