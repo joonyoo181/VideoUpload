@@ -129,6 +129,11 @@ class Camera : AppCompatActivity() {
             override fun onStartTrackingTouch(seekBar: SeekBar?) {}
             override fun onStopTrackingTouch(seekBar: SeekBar?) {}
         })
+
+        //to be implemented
+        Button_setPreviewRatio.setOnClickListener{
+
+        }
     }
 
     //Opening MainPage from Camera Page
