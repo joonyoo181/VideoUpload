@@ -3,6 +3,8 @@ package com.example.iambeta.authentication
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,12 +17,16 @@ import kotlinx.android.synthetic.main.activity_signin.*
 
 class SignInActivity : AppCompatActivity() {
 
+    private var passwordVisibilityStatus: PasswordVisibility? = null
+
     var mAuth: FirebaseAuth? = null
     var mAuthListener: FirebaseAuth.AuthStateListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
+
+        passwordVisibilityStatus = PasswordVisibility.INVISIBLE
 
         mAuth = FirebaseAuth.getInstance()
         mAuthListener = FirebaseAuth.AuthStateListener {  }
@@ -102,5 +108,21 @@ class SignInActivity : AppCompatActivity() {
 
     fun forgotPassword(view: View){
         startActivity(Intent(applicationContext, ForgotPasswordActivity::class.java))
+    }
+
+    fun setPasswordVisibility(view: View){
+        if(passwordVisibilityStatus == PasswordVisibility.INVISIBLE){
+            Button_passwordVisible.setBackgroundResource(R.drawable.signin_password_invisible_vector)
+            passwordText.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            passwordVisibilityStatus = PasswordVisibility.VISIBLE
+        }else if(passwordVisibilityStatus == PasswordVisibility.VISIBLE){
+            Button_passwordVisible.setBackgroundResource(R.drawable.signin_password_visible_vector)
+            passwordText.transformationMethod = PasswordTransformationMethod.getInstance()
+            passwordVisibilityStatus = PasswordVisibility.INVISIBLE
+        }
+    }
+
+    enum class PasswordVisibility{
+        VISIBLE, INVISIBLE
     }
 }
