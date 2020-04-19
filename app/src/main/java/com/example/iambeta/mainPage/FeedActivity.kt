@@ -3,6 +3,7 @@ package com.example.iambeta.mainPage
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.ArrayMap
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -16,12 +17,11 @@ import kotlinx.android.synthetic.main.activity_feed.*
 class FeedActivity : AppCompatActivity() {
 
     var useremailFromFB : ArrayList<String> = ArrayList<String>()
-    var userImageFromFB : ArrayList<String> = ArrayList<String>()
+    var userImageFromFB : ArrayList<Map<String,String>> = ArrayList<Map<String,String>>()
     var userCommentFromFB : ArrayList<String> = ArrayList<String>()
     var firebaseDatabase: FirebaseDatabase? = null
     var myRef : DatabaseReference? = null
     var adapter : PostClass? = null
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
@@ -80,6 +80,7 @@ class FeedActivity : AppCompatActivity() {
                         val email = hashMap["useremail"]
                         val comment = hashMap["comment"]
                         val image = hashMap["downloadUrl"]
+                        val video = hashMap["videoDownloadUrl"]
 
                         if(email != null) {
                             useremailFromFB.add(email)
@@ -90,11 +91,16 @@ class FeedActivity : AppCompatActivity() {
                         }
 
                         if(image != null) {
-                            userImageFromFB.add(image)
+                            val map = mapOf("image" to image)
+                            userImageFromFB.add(map)
+                        }
+
+                        if(video != null) {
+                            val map = mapOf("video" to video)
+                            userImageFromFB.add(map)
                         }
 
                         adapter!!.notifyDataSetChanged()
-
                     }
                 }
             }

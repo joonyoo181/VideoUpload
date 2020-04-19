@@ -17,10 +17,16 @@
         android:layout_height="287dp"
         app:srcCompat="@drawable/googleg_standard_color_18" />
 
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="match_parent"
+        android:layout_height="255dp" />
+
     <TextView
         android:id="@+id/customCommentText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TextView"
         android:textSize="24sp" />
+
 </LinearLayout>
