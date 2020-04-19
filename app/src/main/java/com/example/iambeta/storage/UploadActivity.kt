@@ -3,12 +3,15 @@ package com.example.iambeta.storage
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
+import android.media.ThumbnailUtils
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.example.iambeta.R
 import com.example.iambeta.mainPage.FeedActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -17,15 +20,15 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_upload.*
-import java.lang.Exception
-import java.net.URI
+import java.net.URLConnection
 import java.util.*
-import java.util.jar.Manifest
+
 
 class UploadActivity : AppCompatActivity() {
 
     var selected: Uri? = null
     var mAuth : FirebaseAuth? = null
+    var isImage : Boolean? = true
     var mAuthListenter : FirebaseAuth.AuthStateListener? = null
     var firebaseDatabase : FirebaseDatabase? = null
     var myRef : DatabaseReference? = null
@@ -43,11 +46,15 @@ class UploadActivity : AppCompatActivity() {
 
     fun upload(view: View) {
 
+        // replace with FirebaseAuth.getInstance().getCurrentUser().getUid(); + combine with a uuid so uid/uuid
         val uuid = UUID.randomUUID()
-        val imageName = "images/$uuid.jpg"
+        var imageName = "images/$uuid.jpg"
+
+        if (isImage == false) {
+            imageName = "videos/$uuid.3gp"
+        }
 
         val storageReference = mStorageRef!!.child(imageName)
-
         storageReference.putFile(selected!!).addOnSuccessListener { taskSnapshot ->
 
             val newReference=FirebaseStorage.getInstance().getReference(imageName)
@@ -62,7 +69,11 @@ class UploadActivity : AppCompatActivity() {
                 val uuidString = uuid.toString()
                 myRef!!.child("Posts").child(uuidString).child("useremail").setValue(userEmail)
                 myRef!!.child("Posts").child(uuidString).child("comment").setValue(userComment)
-                myRef!!.child("Posts").child(uuidString).child("downloadUrl").setValue(downloadURL)
+                if (isImage == true) {
+                    myRef!!.child("Posts").child(uuidString).child("downloadUrl").setValue(downloadURL)
+                } else {
+                    myRef!!.child("Posts").child(uuidString).child("videoDownloadUrl").setValue(downloadURL)
+                }
 
             }
 
@@ -86,6 +97,17 @@ class UploadActivity : AppCompatActivity() {
             requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
         } else {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            isImage = true
+            startActivityForResult(intent, 2)
+        }
+    }
+
+    fun selectVideo(view: View) {
+        if(checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+        } else {
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Video.Media.EXTERNAL_CONTENT_URI)
+            isImage = false
             startActivityForResult(intent, 2)
         }
     }
@@ -111,8 +133,22 @@ class UploadActivity : AppCompatActivity() {
 
             try {
 
-                val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, selected)
-                imageView.setImageBitmap(bitmap)
+                // add functionality to check if image or video and replace the boolean check in the onclick handlers
+                if(isImage == false) {
+                    val filePathColumn = arrayOf(MediaStore.Images.Media.DATA)
+                    val cursor = applicationContext.contentResolver.query(selected!!, filePathColumn, null, null, null)
+                    cursor!!.moveToFirst()
+
+                    val columnIndex = cursor.getColumnIndex(filePathColumn[0])
+                    val picturePath = cursor.getString(columnIndex)
+                    cursor.close()
+
+                    val preview = ThumbnailUtils.createVideoThumbnail(picturePath, MediaStore.Video.Thumbnails.MICRO_KIND)
+                    videoView.setImageBitmap(preview)
+                } else {
+                    val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, selected)
+                    imageView.setImageBitmap(bitmap)
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
