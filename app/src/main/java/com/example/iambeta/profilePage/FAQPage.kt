@@ -1,6 +1,5 @@
 package com.example.iambeta.profilePage
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +14,6 @@ class FAQPage : AppCompatActivity() {
 
     //Opening Profile Page From FAQ Page
     fun faqToProfilePage(view: View){
-        startActivity(Intent(applicationContext, ProfilePage::class.java))
         finish()
     }
 }

@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.iambeta.R
 import com.example.iambeta.authentication.SignInActivity
-import com.example.iambeta.mainPage.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class ProfilePage : AppCompatActivity() {
@@ -32,12 +31,10 @@ class ProfilePage : AppCompatActivity() {
     //Opening FAQ Page from Profile Page
     fun profileToFAQPage(view: View){
         startActivity(Intent(applicationContext, FAQPage::class.java))
-        finish()
     }
 
     //Opening Main Page from Profile Page
     fun profileToMainPage(view: View){
-        startActivity(Intent(applicationContext, MainActivity::class.java))
         finish()
     }
 }

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">i.amBeta</string>
+    <string name="app_name">i.am</string>
+    <string name="forgotPW"><u>forgot password?</u></string>
 </resources>

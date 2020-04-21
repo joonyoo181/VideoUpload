@@ -13,7 +13,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.iambeta.R
-import com.example.iambeta.mainPage.FeedActivity
+import com.example.iambeta.mainPage.MainActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -22,7 +22,6 @@ import com.google.firebase.storage.StorageReference
 import kotlinx.android.synthetic.main.activity_upload.*
 import java.net.URLConnection
 import java.util.*
-
 
 class UploadActivity : AppCompatActivity() {
 
@@ -85,8 +84,8 @@ class UploadActivity : AppCompatActivity() {
             if (task.isComplete) {
                 Toast.makeText(applicationContext, "Post Shared", Toast.LENGTH_LONG).show()
 
-                val intent = Intent(applicationContext, FeedActivity::class.java)
-                startActivity(intent)
+                startActivity(Intent(applicationContext, MainActivity::class.java))
+                finish()
             }
         }
 
