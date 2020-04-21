@@ -22,7 +22,7 @@ class ProfilePage : AppCompatActivity() {
             FirebaseAuth.getInstance().signOut()
             Toast.makeText(applicationContext, "Successfully Logged Out!", Toast.LENGTH_LONG).show()
             startActivity(Intent(applicationContext, SignInActivity::class.java))
-            finish()
+            finishAffinity()
         }catch (e: Exception){
             Toast.makeText(applicationContext, e.toString(), Toast.LENGTH_LONG).show()
         }
