@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     //Declaring ListView objects
     var useremailFromFB : ArrayList<String> = ArrayList()
-    var userImageFromFB : ArrayList<String> = ArrayList()
+    var userImageFromFB : ArrayList<Map<String,String>> = ArrayList<Map<String,String>>()
     var userCommentFromFB : ArrayList<String> = ArrayList()
     var firebaseDatabase: FirebaseDatabase? = null
     var myRef : DatabaseReference? = null
@@ -102,7 +102,8 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         if(image != null) {
-                            userImageFromFB.add(image)
+                            val map = mapOf("image" to image)
+                            userImageFromFB.add(map)
                         }
 
                         adapter!!.notifyDataSetChanged()
