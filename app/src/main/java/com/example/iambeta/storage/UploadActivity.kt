@@ -45,7 +45,8 @@ class UploadActivity : AppCompatActivity() {
 
     fun upload(view: View) {
 
-        // replace with FirebaseAuth.getInstance().getCurrentUser().getUid(); + combine with a uuid so uid/uuid
+        // replace with  + combine with a uuid so uid/uuid
+        val userId = FirebaseAuth.getInstance().getCurrentUser()!!.getUid();
         val uuid = UUID.randomUUID()
         var imageName = "images/$uuid.jpg"
 
@@ -66,12 +67,13 @@ class UploadActivity : AppCompatActivity() {
 
                 val uuid = UUID.randomUUID()
                 val uuidString = uuid.toString()
-                myRef!!.child("Posts").child(uuidString).child("useremail").setValue(userEmail)
-                myRef!!.child("Posts").child(uuidString).child("comment").setValue(userComment)
+                val userIdString = userId.toString()
+                myRef!!.child("Posts").child(userIdString).child(uuidString).child("useremail").setValue(userEmail)
+                myRef!!.child("Posts").child(userIdString).child(uuidString).child("comment").setValue(userComment)
                 if (isImage == true) {
-                    myRef!!.child("Posts").child(uuidString).child("downloadUrl").setValue(downloadURL)
+                    myRef!!.child("Posts").child(userIdString).child(uuidString).child("downloadUrl").setValue(downloadURL)
                 } else {
-                    myRef!!.child("Posts").child(uuidString).child("videoDownloadUrl").setValue(downloadURL)
+                    myRef!!.child("Posts").child(userIdString).child(uuidString).child("videoDownloadUrl").setValue(downloadURL)
                 }
 
             }

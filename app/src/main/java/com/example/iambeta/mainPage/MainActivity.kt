@@ -2,6 +2,7 @@ package com.example.iambeta.mainPage
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -70,7 +71,6 @@ class MainActivity : AppCompatActivity() {
     //Obtaining data from firebase
     private fun getDataFromFirebase() {
         val newReference = firebaseDatabase!!.getReference("Posts")
-
         newReference.addValueEventListener(object: ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
 
@@ -78,36 +78,41 @@ class MainActivity : AppCompatActivity() {
 
             override fun onDataChange(p0: DataSnapshot) {
 
+                val beep = p0.children.toString()
+                Log.d("BLAH", beep)
+
+
                 adapter!!.clear()
                 userImageFromFB.clear()
                 userCommentFromFB.clear()
                 useremailFromFB.clear()
+                for (user in p0.children) {
+                    for (snapshot in user.children) {
 
-                for (snapshot in p0.children) {
+                        val hashMap = snapshot.value as HashMap<String, String>
 
-                    val hashMap = snapshot.value as HashMap<String,String>
+                        if (hashMap.size > 0) {
 
-                    if (hashMap.size > 0) {
+                            val email = hashMap["useremail"]
+                            val comment = hashMap["comment"]
+                            val image = hashMap["downloadUrl"]
 
-                        val email = hashMap["useremail"]
-                        val comment = hashMap["comment"]
-                        val image = hashMap["downloadUrl"]
+                            if (email != null) {
+                                useremailFromFB.add(email)
+                            }
 
-                        if(email != null) {
-                            useremailFromFB.add(email)
+                            if (comment != null) {
+                                userCommentFromFB.add(comment)
+                            }
+
+                            if (image != null) {
+                                val map = mapOf("image" to image)
+                                userImageFromFB.add(map)
+                            }
+
+                            adapter!!.notifyDataSetChanged()
+
                         }
-
-                        if(comment != null) {
-                            userCommentFromFB.add(comment)
-                        }
-
-                        if(image != null) {
-                            val map = mapOf("image" to image)
-                            userImageFromFB.add(map)
-                        }
-
-                        adapter!!.notifyDataSetChanged()
-
                     }
                 }
             }
