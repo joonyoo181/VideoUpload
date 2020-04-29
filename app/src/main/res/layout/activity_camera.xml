@@ -102,7 +102,7 @@
         android:id="@+id/Button_setPreviewRatio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/camera_switch_vector"
+        android:src="@drawable/camera_layout_ratio_vector"
         android:layout_marginEnd="100dp"
         app:layout_constraintBottom_toBottomOf="@id/Button_cameraFlash"
         app:layout_constraintEnd_toEndOf="@id/Button_cameraFlash"
