@@ -2,12 +2,9 @@ package com.example.iambeta.mainPage;
 
 import android.app.Activity
 import android.net.Uri
-import android.util.ArrayMap
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.VideoView
 import com.example.iambeta.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.custom_view.view.*
@@ -15,7 +12,7 @@ import kotlinx.android.synthetic.main.custom_view.view.*
 
 class PostClass (private val useremail: ArrayList<String>,
                  private val userImage: ArrayList<Map<String, String>>,
-                 private val userComment: ArrayList<String>,
+                 private val userDescription: ArrayList<String>,
                  private val context: Activity) :
                             ArrayAdapter<String>(context, R.layout.custom_view, useremail)  {
 
@@ -29,8 +26,8 @@ class PostClass (private val useremail: ArrayList<String>,
             customView.customUserName.text = useremail[position]
         }
 
-        if (userComment.size != 0){
-            customView.customCommentText.text = userComment[position]
+        if (userDescription.size != 0){
+            customView.customCommentText.text = userDescription[position]
         }
 
         if (userImage.size != 0 && userImage.getOrNull(position) != null && userImage[position].containsKey("image")){
