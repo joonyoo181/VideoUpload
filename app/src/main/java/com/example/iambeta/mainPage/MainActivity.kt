@@ -39,14 +39,15 @@ class MainActivity : AppCompatActivity() {
         getDataFromFirebase()
     }
 
+    //ListView inflating menu
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
         val menuInflater = menuInflater
         menuInflater.inflate(R.menu.add_post, menu)
-
         return super.onCreateOptionsMenu(menu)
     }
 
+    //ListView
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         if (item.itemId == R.id.add_post){
@@ -68,9 +69,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Obtaining data from firebase
-    fun getDataFromFirebase() {
+    private fun getDataFromFirebase() {
         val newReference = firebaseDatabase!!.getReference("Posts")
-
         newReference.addValueEventListener(object: ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
 
@@ -78,41 +78,41 @@ class MainActivity : AppCompatActivity() {
 
             override fun onDataChange(p0: DataSnapshot) {
 
+                val beep = p0.children.toString()
+                Log.d("BLAH", beep)
+
+
                 adapter!!.clear()
                 userImageFromFB.clear()
                 userCommentFromFB.clear()
                 useremailFromFB.clear()
+                for (user in p0.children) {
+                    for (snapshot in user.children) {
 
-                for (snapshot in p0.children) {
+                        val hashMap = snapshot.value as HashMap<String, String>
 
-                    val hashMap = snapshot.value as HashMap<String,String>
+                        if (hashMap.size > 0) {
 
-                    if (hashMap.size > 0) {
+                            val email = hashMap["useremail"]
+                            val comment = hashMap["comment"]
+                            val image = hashMap["downloadUrl"]
 
-                        val email = hashMap["useremail"]
-                        val comment = hashMap["comment"]
-                        val image = hashMap["downloadUrl"]
-                        val video = hashMap["videoDownloadUrl"]
+                            if (email != null) {
+                                useremailFromFB.add(email)
+                            }
 
-                        if(email != null) {
-                            useremailFromFB.add(email)
+                            if (comment != null) {
+                                userCommentFromFB.add(comment)
+                            }
+
+                            if (image != null) {
+                                val map = mapOf("image" to image)
+                                userImageFromFB.add(map)
+                            }
+
+                            adapter!!.notifyDataSetChanged()
+
                         }
-
-                        if(comment != null) {
-                            userCommentFromFB.add(comment)
-                        }
-
-                        if(image != null) {
-                            val map = mapOf("image" to image)
-                            userImageFromFB.add(map)
-                        }
-
-                        if(video != null) {
-                            val map = mapOf("video" to video)
-                            userImageFromFB.add(map)
-                        }
-
-                        adapter!!.notifyDataSetChanged()
                     }
                 }
             }
