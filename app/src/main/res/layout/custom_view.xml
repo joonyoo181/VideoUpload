@@ -27,7 +27,20 @@
         android:id="@+id/customCommentText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Comment"
+        android:text="Description"
         android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View all 20 comments"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/comment"
+        android:layout_width="91dp"
+        android:layout_height="33dp"
+        app:srcCompat="@drawable/googleg_standard_color_18" />
 
 </LinearLayout>

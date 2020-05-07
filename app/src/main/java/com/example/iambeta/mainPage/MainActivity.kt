@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
     var userImageFromFB : ArrayList<Map<String,String>> = ArrayList<Map<String,String>>()
     var userCommentFromFB : ArrayList<String> = ArrayList()
     var firebaseDatabase: FirebaseDatabase? = null
+    var userListFromFB : ArrayList<String> = ArrayList()
+    var userPostFromFB : ArrayList<String> = ArrayList()
     var myRef : DatabaseReference? = null
     var adapter : PostClass? = null
 
@@ -32,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         firebaseDatabase = FirebaseDatabase.getInstance()
         myRef = firebaseDatabase!!.getReference()
 
-        adapter = PostClass(useremailFromFB, userImageFromFB, userCommentFromFB, this)
+        adapter = PostClass(useremailFromFB, userImageFromFB, userCommentFromFB, this, userPostFromFB, userListFromFB)
 
         listView.adapter = adapter
 
@@ -79,15 +81,18 @@ class MainActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
 
                 val beep = p0.children.toString()
-                Log.d("BLAH", beep)
 
 
                 adapter!!.clear()
                 userImageFromFB.clear()
                 userCommentFromFB.clear()
                 useremailFromFB.clear()
+                userListFromFB.clear()
+                userPostFromFB.clear()
                 for (user in p0.children) {
+                    val currentUser = user.key
                     for (snapshot in user.children) {
+                        val currentPost = snapshot.key
 
                         val hashMap = snapshot.value as HashMap<String, String>
 
@@ -108,6 +113,14 @@ class MainActivity : AppCompatActivity() {
                             if (image != null) {
                                 val map = mapOf("image" to image)
                                 userImageFromFB.add(map)
+                            }
+
+                            if (currentPost != null) {
+                                userPostFromFB.add(currentPost)
+                            }
+
+                            if (currentUser != null) {
+                                userListFromFB.add(currentUser)
                             }
 
                             adapter!!.notifyDataSetChanged()
