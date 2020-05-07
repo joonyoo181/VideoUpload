@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:text="TextView"
         android:gravity="center"
-        android:textSize="18sp" />
+        android:textSize="25sp" />
 
     <ImageView
         android:id="@+id/customImageView"
@@ -23,11 +23,17 @@
         android:layout_width="match_parent"
         android:layout_height="255dp" />
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/content_white_heart_vector" />
+
     <TextView
         android:id="@+id/customCommentText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Comment"
-        android:textSize="24sp" />
+        android:text="Description"
+        android:textSize="20sp" />
 
 </LinearLayout>

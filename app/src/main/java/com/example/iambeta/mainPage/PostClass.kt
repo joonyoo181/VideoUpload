@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.example.iambeta.R
+import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.custom_view.view.*
 
@@ -13,10 +14,15 @@ import kotlinx.android.synthetic.main.custom_view.view.*
 class PostClass (private val useremail: ArrayList<String>,
                  private val userImage: ArrayList<Map<String, String>>,
                  private val userDescription: ArrayList<String>,
+                 private val userLikes: ArrayList<Map<String, Boolean>>,
                  private val context: Activity) :
                             ArrayAdapter<String>(context, R.layout.custom_view, useremail)  {
 
+    var uid: String? = null
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+
+        uid = FirebaseAuth.getInstance().currentUser?.uid
 
         val layoutInflater = context.layoutInflater
 

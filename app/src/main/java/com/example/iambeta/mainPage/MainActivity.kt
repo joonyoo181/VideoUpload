@@ -18,8 +18,9 @@ class MainActivity : AppCompatActivity() {
 
     //Declaring ListView objects
     var useremailFromFB : ArrayList<String> = ArrayList()
-    var userImageFromFB : ArrayList<Map<String,String>> = ArrayList<Map<String,String>>()
+    var userImageFromFB : ArrayList<Map<String,String>> = ArrayList()
     var userCommentFromFB : ArrayList<String> = ArrayList()
+    var userLikesFromFB: ArrayList<Map<String, Boolean>> = ArrayList()
     var firebaseDatabase: FirebaseDatabase? = null
     var myRef : DatabaseReference? = null
     var adapter : PostClass? = null
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         firebaseDatabase = FirebaseDatabase.getInstance()
         myRef = firebaseDatabase!!.getReference()
 
-        adapter = PostClass(useremailFromFB, userImageFromFB, userCommentFromFB, this)
+        adapter = PostClass(useremailFromFB, userImageFromFB, userCommentFromFB, userLikesFromFB, this)
 
         listView.adapter = adapter
 

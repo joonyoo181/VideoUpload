@@ -47,15 +47,6 @@ class UploadActivity : AppCompatActivity() {
     }
 
     fun upload(view: View) {
-
-        //create dialog to choose between uploading an image or a video
-        val dialogBuilder = AlertDialog.Builder(this)
-        dialogBuilder.setTitle("Which of the following would you like to upload?")
-            .setPositiveButton("Image"){dialog, which -> selectImage() }
-            .setNegativeButton("Video"){dialog, which -> selectVideo() }
-        val dialog = dialogBuilder.create()
-        dialog.show()
-
         // replace with  + combine with a uuid so uid/uuid
         val userId = FirebaseAuth.getInstance().getCurrentUser()!!.getUid();
         val uuid = UUID.randomUUID()
@@ -102,6 +93,24 @@ class UploadActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    fun uploadFile(view: View){
+        //create dialog to choose between uploading an image or a video
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setTitle("Which of the following would you like to upload?")
+            .setPositiveButton("Image"){ _, _ -> selectImage() }
+            .setNegativeButton("Video"){ _, _ -> selectVideo() }
+        val dialog = dialogBuilder.create()
+        dialog.show()
+
+        val btnPositive = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        val btnNegative = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+
+        val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
+        layoutParams.weight = 10f
+        btnPositive.layoutParams = layoutParams
+        btnNegative.layoutParams = layoutParams
     }
 
     private fun selectImage() {
