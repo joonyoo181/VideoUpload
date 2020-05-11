@@ -110,10 +110,12 @@ class Camera : AppCompatActivity() {
                 if(switchStatus == switchState.BACK){
                     switchStatus = switchState.FRONT
                     Button_cameraFlash.visibility = View.GONE
+                    Button_setPreviewRatio.visibility = View.GONE
                     CameraView_cameraPreview.cameraLensFacing = CameraSelector.LENS_FACING_FRONT
                 }else{
                     switchStatus = switchState.BACK
                     Button_cameraFlash.visibility = View.VISIBLE
+                    Button_setPreviewRatio.visibility = View.VISIBLE
                     CameraView_cameraPreview.cameraLensFacing = CameraSelector.LENS_FACING_BACK
                 }
             }else{

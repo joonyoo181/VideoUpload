@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.ArrayMap
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -15,6 +13,7 @@ import com.example.iambeta.mainPage.CommentActivity
 import com.example.iambeta.R
 import com.example.iambeta.profilePage.ProfilePage
 import com.google.firebase.database.*
+import com.google.firebase.auth.FirebaseAuth
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.custom_view.view.*
 
@@ -44,8 +43,16 @@ class PostClass (private val useremail: ArrayList<String>,
         })
     }
 
+                 private val userDescription: ArrayList<String>,
+                 private val userLikes: ArrayList<Map<String, Boolean>>,
+                 private val context: Activity) :
+                            ArrayAdapter<String>(context, R.layout.custom_view, useremail)  {
+
+    var uid: String? = null
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+
+        uid = FirebaseAuth.getInstance().currentUser?.uid
 
         val layoutInflater = context.layoutInflater
 
@@ -59,8 +66,8 @@ class PostClass (private val useremail: ArrayList<String>,
             customView.customUserName.text = useremail[position]
         }
 
-        if (userComment.size != 0){
-            customView.customCommentText.text = userComment[position]
+        if (userDescription.size != 0){
+            customView.customCommentText.text = userDescription[position]
         }
 
         if (userImage.size != 0 && userImage.getOrNull(position) != null && userImage[position].containsKey("image")){

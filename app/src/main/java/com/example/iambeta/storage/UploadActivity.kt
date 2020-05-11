@@ -1,6 +1,8 @@
 package com.example.iambeta.storage
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
@@ -10,6 +12,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.iambeta.R
@@ -44,7 +47,6 @@ class UploadActivity : AppCompatActivity() {
     }
 
     fun upload(view: View) {
-
         // replace with  + combine with a uuid so uid/uuid
         val userId = FirebaseAuth.getInstance().getCurrentUser()!!.getUid();
         val uuid = UUID.randomUUID()
@@ -93,7 +95,25 @@ class UploadActivity : AppCompatActivity() {
 
     }
 
-    fun selectImage(view: View) {
+    fun uploadFile(view: View){
+        //create dialog to choose between uploading an image or a video
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setTitle("Which of the following would you like to upload?")
+            .setPositiveButton("Image"){ _, _ -> selectImage() }
+            .setNegativeButton("Video"){ _, _ -> selectVideo() }
+        val dialog = dialogBuilder.create()
+        dialog.show()
+
+        val btnPositive = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        val btnNegative = dialog.getButton(AlertDialog.BUTTON_NEGATIVE)
+
+        val layoutParams = btnPositive.layoutParams as LinearLayout.LayoutParams
+        layoutParams.weight = 10f
+        btnPositive.layoutParams = layoutParams
+        btnNegative.layoutParams = layoutParams
+    }
+
+    private fun selectImage() {
         if(checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
         } else {
@@ -103,7 +123,7 @@ class UploadActivity : AppCompatActivity() {
         }
     }
 
-    fun selectVideo(view: View) {
+    private fun selectVideo() {
         if(checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1)
         } else {
@@ -145,7 +165,7 @@ class UploadActivity : AppCompatActivity() {
                     cursor.close()
 
                     val preview = ThumbnailUtils.createVideoThumbnail(picturePath, MediaStore.Video.Thumbnails.MICRO_KIND)
-                    videoView.setImageBitmap(preview)
+                    imageView.setImageBitmap(preview)
                 } else {
                     val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, selected)
                     imageView.setImageBitmap(bitmap)
