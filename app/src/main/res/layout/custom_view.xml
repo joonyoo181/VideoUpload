@@ -34,6 +34,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Description"
-        android:textSize="20sp" />
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/comments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View all 20 comments"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/comment"
+        android:layout_width="91dp"
+        android:layout_height="33dp"
+        app:srcCompat="@drawable/googleg_standard_color_18" />
 
 </LinearLayout>
