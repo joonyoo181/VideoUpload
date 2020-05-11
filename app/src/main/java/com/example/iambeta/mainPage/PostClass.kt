@@ -1,29 +1,26 @@
 package com.example.iambeta.mainPage;
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import android.widget.VideoView
-import com.example.iambeta.mainPage.CommentActivity
 import com.example.iambeta.R
-import com.example.iambeta.profilePage.ProfilePage
-import com.google.firebase.database.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.custom_view.view.*
 
 
 class PostClass (private val useremail: ArrayList<String>,
                  private val userImage: ArrayList<Map<String, String>>,
-                 private val userComment: ArrayList<String>,
-                 private val context: Activity,
+                 private val userDescription: ArrayList<String>,
+                 private val userLikes: ArrayList<Map<String, Boolean>>,
                  private val userpost: ArrayList<String>,
-                 private val userlist: ArrayList<String>) :
+                 private val userlist: ArrayList<String>,
+                 private val context: Activity):
                             ArrayAdapter<String>(context, R.layout.custom_view, useremail)  {
 
     fun getComments(postid : String, comments: TextView) {
@@ -43,14 +40,9 @@ class PostClass (private val useremail: ArrayList<String>,
         })
     }
 
-                 private val userDescription: ArrayList<String>,
-                 private val userLikes: ArrayList<Map<String, Boolean>>,
-                 private val context: Activity) :
-                            ArrayAdapter<String>(context, R.layout.custom_view, useremail)  {
-
-    var uid: String? = null
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        var uid: String? = null
 
         uid = FirebaseAuth.getInstance().currentUser?.uid
 
@@ -83,15 +75,6 @@ class PostClass (private val useremail: ArrayList<String>,
             customView.videoView.start()
         } else {
             customView.videoView.setVideoURI(null)
-        }
-
-        customView.comment.setOnClickListener {
-            if (userlist.size != 0 && userpost.size != 0){
-                var intent = Intent(context, CommentActivity::class.java)
-                intent.putExtra("userId", userlist[position])
-                intent.putExtra("postId", userpost[position])
-                context.startActivity(intent)
-            }
         }
 
         customView.comments.setOnClickListener {

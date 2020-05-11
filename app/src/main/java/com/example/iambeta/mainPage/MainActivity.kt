@@ -2,7 +2,6 @@ package com.example.iambeta.mainPage
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -19,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     //Declaring ListView objects
     var useremailFromFB : ArrayList<String> = ArrayList()
     var userImageFromFB : ArrayList<Map<String,String>> = ArrayList()
-    var userCommentFromFB : ArrayList<String> = ArrayList()
+    var userDescriptionFromFB : ArrayList<String> = ArrayList()
     var userLikesFromFB: ArrayList<Map<String, Boolean>> = ArrayList()
     var firebaseDatabase: FirebaseDatabase? = null
     var userListFromFB : ArrayList<String> = ArrayList()
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         myRef = firebaseDatabase!!.getReference()
 
 
-        adapter = PostClass(useremailFromFB, userImageFromFB, userCommentFromFB, this, userPostFromFB, userListFromFB)
+        adapter = PostClass(useremailFromFB, userImageFromFB, userDescriptionFromFB, userLikesFromFB, userPostFromFB, userListFromFB, this)
 
         listView.adapter = adapter
 
@@ -87,7 +86,7 @@ class MainActivity : AppCompatActivity() {
 
                 adapter!!.clear()
                 userImageFromFB.clear()
-                userCommentFromFB.clear()
+                userDescriptionFromFB.clear()
                 useremailFromFB.clear()
                 userListFromFB.clear()
                 userPostFromFB.clear()
@@ -109,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                             }
 
                             if (comment != null) {
-                                userCommentFromFB.add(comment)
+                                userDescriptionFromFB.add(comment)
                             }
 
                             if (image != null) {
