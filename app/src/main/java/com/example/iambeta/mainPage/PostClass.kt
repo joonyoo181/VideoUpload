@@ -62,12 +62,12 @@ class PostClass (private val useremail: ArrayList<String>,
             customView.customCommentText.text = userDescription[position]
         }
 
-        if (userImage.size != 0 && userImage.getOrNull(position) != null && userImage[position].containsKey("image")){
-            Picasso.get().load(userImage[position].get("image")).into(customView.customImageView)
-        } else {
-            customView.customImageView.setImageBitmap(null)
-        }
-
+        //if (userImage.size != 0 && userImage.getOrNull(position) != null && userImage[position].containsKey("image")){
+        //    Picasso.get().load(userImage[position].get("image")).into(customView.customImageView)
+        //} else {
+        //    customView.customImageView.setImageBitmap(null)
+        //}
+//
         if (userImage.size != 0 && userImage.getOrNull(position) != null && userImage[position].containsKey("video")) {
             val uri: Uri = Uri.parse(userImage[position].get("video"))
             customView.videoView.setVideoURI(uri)

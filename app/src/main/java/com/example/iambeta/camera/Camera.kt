@@ -105,22 +105,25 @@ class Camera : AppCompatActivity() {
 
         //if switch camera button is clicked
         Button_cameraSwitch.setOnClickListener{
-            if(CameraView_cameraPreview.hasCameraWithLensFacing(CameraSelector.LENS_FACING_BACK) ||
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                if(CameraView_cameraPreview.hasCameraWithLensFacing(CameraSelector.LENS_FACING_BACK) ||
                     CameraView_cameraPreview.hasCameraWithLensFacing(CameraSelector.LENS_FACING_FRONT)) {
-                if(switchStatus == switchState.BACK){
-                    switchStatus = switchState.FRONT
-                    Button_cameraFlash.visibility = View.GONE
-                    Button_setPreviewRatio.visibility = View.GONE
-                    CameraView_cameraPreview.cameraLensFacing = CameraSelector.LENS_FACING_FRONT
+                    if(switchStatus == switchState.BACK){
+                        switchStatus = switchState.FRONT
+                        Button_cameraFlash.visibility = View.GONE
+                        Button_setPreviewRatio.visibility = View.GONE
+                        CameraView_cameraPreview.cameraLensFacing = CameraSelector.LENS_FACING_FRONT
+                    }else{
+                        switchStatus = switchState.BACK
+                        Button_cameraFlash.visibility = View.VISIBLE
+                        Button_setPreviewRatio.visibility = View.VISIBLE
+                        CameraView_cameraPreview.cameraLensFacing = CameraSelector.LENS_FACING_BACK
+                    }
                 }else{
-                    switchStatus = switchState.BACK
-                    Button_cameraFlash.visibility = View.VISIBLE
-                    Button_setPreviewRatio.visibility = View.VISIBLE
-                    CameraView_cameraPreview.cameraLensFacing = CameraSelector.LENS_FACING_BACK
+                    Toast.makeText(applicationContext, "Unable to switch camera", Toast.LENGTH_SHORT).show()
                 }
-            }else{
-                Toast.makeText(applicationContext, "Unable to switch camera", Toast.LENGTH_SHORT).show()
             }
+
         }
 
         //zoom slider
@@ -186,7 +189,9 @@ class Camera : AppCompatActivity() {
 
     //starting camera
     private fun openCamera(){
-        CameraView_cameraPreview.bindToLifecycle(this)
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            CameraView_cameraPreview.bindToLifecycle(this)
+        }
     }
 
     //Enum class to see if the record button is recording or not

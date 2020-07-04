@@ -52,20 +52,6 @@
         app:layout_constraintVertical_bias="0.025" />
 
     <Button
-        android:id="@+id/Button_mainVideoComments"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/circle_buttons"
-        android:backgroundTint="@color/lightcyan"
-        android:text="C"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.274"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.046" />
-
-    <Button
         android:id="@+id/main_mainToMainPage"
         android:layout_width="150dp"
         android:layout_height="50dp"
@@ -107,10 +93,10 @@
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="700dp"
+        android:layout_height="wrap_content"
         android:scrollbars="none"
         android:layout_marginTop="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/Button_mainToDiscoverPage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"

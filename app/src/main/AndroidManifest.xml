@@ -14,20 +14,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mainPage.CommentActivity"></activity>
+        <activity android:name=".startup.IntroActivity"><intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
+        <activity android:name=".mainPage.CommentActivity" />
         <activity android:name=".authentication.ForgotPasswordActivity" />
         <activity android:name=".mainPage.MainActivity" />
         <activity android:name=".camera.Camera" />
         <activity android:name=".profilePage.FAQPage" />
         <activity android:name=".profilePage.ProfilePage" />
         <activity android:name=".storage.UploadActivity" />
-        <activity android:name=".authentication.SignInActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".authentication.SignInActivity" />
         <activity
             android:name=".mainPage.popUp.FirstPopUp"
             android:theme="@style/AppTheme.TransparentBG" />
