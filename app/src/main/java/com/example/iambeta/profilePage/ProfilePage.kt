@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.iambeta.R
 import com.example.iambeta.authentication.SignInActivity
+import com.example.iambeta.startup.IntroActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class ProfilePage : AppCompatActivity() {
@@ -21,7 +22,7 @@ class ProfilePage : AppCompatActivity() {
         try{
             FirebaseAuth.getInstance().signOut()
             Toast.makeText(applicationContext, "Successfully Logged Out!", Toast.LENGTH_LONG).show()
-            startActivity(Intent(applicationContext, SignInActivity::class.java))
+            startActivity(Intent(applicationContext, IntroActivity::class.java))
             finishAffinity()
         }catch (e: Exception){
             Toast.makeText(applicationContext, e.toString(), Toast.LENGTH_LONG).show()

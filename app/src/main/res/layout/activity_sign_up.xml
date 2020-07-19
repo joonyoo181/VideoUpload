@@ -4,43 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".authentication.SignInActivity">
+    tools:context=".authentication.SignUpActivity">
 
     <EditText
         android:id="@+id/emailText"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
         android:ems="10"
-        android:hint="email"
+        android:hint="enter email"
+        android:gravity="center"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="200dp"/>
 
     <EditText
         android:id="@+id/passwordText"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:ems="10"
-        android:hint="password"
+        android:gravity="center"
+        android:hint="enter password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/emailText"
         app:layout_constraintStart_toStartOf="@+id/emailText"
-        app:layout_constraintTop_toBottomOf="@+id/emailText" />
-
-    <Button
-        android:id="@+id/Button_signin"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:onClick="signIn"
-        android:text="Sign In"
-        android:background="@drawable/slightly_corner_rounded_buttons"
-        app:layout_constraintEnd_toEndOf="@+id/Button_passwordVisible"
-        app:layout_constraintStart_toStartOf="@+id/passwordText"
-        app:layout_constraintTop_toBottomOf="@+id/passwordText" />
+        app:layout_constraintTop_toBottomOf="@+id/emailText"
+        android:layout_marginTop="30dp"/>
 
     <Button
         android:id="@+id/Button_passwordVisible"
@@ -54,38 +44,41 @@
         app:layout_constraintTop_toTopOf="@id/passwordText"
         app:layout_constraintHorizontal_bias="1"/>
 
-    <TextView
-        android:id="@+id/TextView_forgotPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:onClick="forgotPassword"
-        android:text="@string/forgotPW"
-        android:textColor="@color/blue"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/Button_signin"
-        app:layout_constraintStart_toStartOf="@+id/Button_signin"
-        app:layout_constraintTop_toBottomOf="@+id/Button_signin" />
-
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/Button_signinGoogle"
-        android:layout_width="310dp"
-        android:layout_height="70dp"
-        app:layout_constraintEnd_toEndOf="@+id/passwordText"
-        app:layout_constraintStart_toStartOf="@+id/passwordText"
-        app:layout_constraintTop_toBottomOf="@+id/Button_signin"
-        android:layout_marginTop="150dp"/>
-
     <Button
-        android:id="@+id/Button_signinFaceBook"
+        android:id="@+id/Button_signup"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:onClick="signInFaceBook"
-        android:text="Sign In Using FaceBook"
+        android:onClick="signUp"
+        android:text="Sign Up"
         android:background="@drawable/slightly_corner_rounded_buttons"
         app:layout_constraintEnd_toEndOf="@+id/passwordText"
         app:layout_constraintStart_toStartOf="@+id/passwordText"
-        app:layout_constraintTop_toBottomOf="@+id/Button_signinGoogle"
+        app:layout_constraintTop_toBottomOf="@+id/passwordText"
+        android:layout_marginTop="50dp"/>
+
+    <Button
+        android:id="@+id/Button_signupGoogle"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:onClick="signUpGoogle"
+        android:text="Sign Up Using Google"
+        android:background="@drawable/slightly_corner_rounded_buttons"
+        app:layout_constraintEnd_toEndOf="@+id/passwordText"
+        app:layout_constraintStart_toStartOf="@+id/passwordText"
+        app:layout_constraintTop_toBottomOf="@+id/Button_signup"
+        android:layout_marginTop="150dp"/>
+
+    <Button
+        android:id="@+id/Button_signupFaceBook"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:onClick="signUpFaceBook"
+        android:text="Sign Up Using FaceBook"
+        android:background="@drawable/slightly_corner_rounded_buttons"
+        app:layout_constraintEnd_toEndOf="@+id/passwordText"
+        app:layout_constraintStart_toStartOf="@+id/passwordText"
+        app:layout_constraintTop_toBottomOf="@+id/Button_signupGoogle"
         android:layout_marginTop="20dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
