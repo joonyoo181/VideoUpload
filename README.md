@@ -17,7 +17,4 @@ Here are some of the UI of the app
 ### Chat Page
 <img width="200" alt="image" src="https://user-images.githubusercontent.com/59751754/201499823-cd3308d1-cc1d-417b-8f45-812f9ba1bc5c.png">
 
-### Profile Page
-<img width="200" alt="image" src="https://user-images.githubusercontent.com/59751754/201499832-743df155-277f-4ae0-8b35-67a92bd3f883.png">
-
 This project is continuing to be made with ❤️ by Jeremy Yoo
