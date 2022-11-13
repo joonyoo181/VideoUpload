@@ -11,10 +11,17 @@ App Website (under development) could be viewed at: https://www.app-iam.com/
 ## UI Designs
 Here are some of the UI of the app
 
+### SignIn/SignUp Page
+<img width="200" alt="image" src="https://user-images.githubusercontent.com/59751754/201499977-db526501-d284-4839-8952-6df20342d850.png">
+
 ### Feed Page
 <img width="200" alt="image" src="https://user-images.githubusercontent.com/59751754/201499756-b425bc96-28b2-432e-aae2-170aeb79aec0.png">
 
 ### Chat Page
 <img width="200" alt="image" src="https://user-images.githubusercontent.com/59751754/201499823-cd3308d1-cc1d-417b-8f45-812f9ba1bc5c.png">
+
+### Profile Page
+<img width="200" alt="image" src="https://user-images.githubusercontent.com/59751754/201500012-95beaf45-e809-4440-804f-301f1d05ba7f.png">
+
 
 This project is continuing to be made with ❤️ by Jeremy Yoo
