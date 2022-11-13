@@ -6,7 +6,7 @@ Social media app dedicated to providng a safe environment for teenagers to relie
 
 App Website (under development) could be viewed at: https://www.app-iam.com/
 
-**Note: The current version of this app is in a private repository as it is still under the developmen with confidential security keys**
+**Note: The current version of this app is in a private repository as it is still under the development containing confidential security keys**
 
 ## UI Designs
 Here are some of the UI of the app
