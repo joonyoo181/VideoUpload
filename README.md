@@ -4,10 +4,6 @@
 ## Summary
 Social media app dedicated to providng a safe environment for teenagers to relieve stress in. Designed from scratch using Android Studio (for development) and Figma (for UI design). Made in Kotlin, JavaScript, and Firebase. Functionalities include fild upload, cloud messaging/notifications, form validation, user authentication, and camera.
 
-App Website (under development) could be viewed at: https://www.app-iam.com/
-
-**Note: The current version of this app is in a private repository as it is still under the development. To see the current repository, please contact me.**
-
 ## Features and Interfaces of this Beta
 1. Sign In Page / Sign Up Page
    - Login with the provided user email and password
